@@ -32,7 +32,7 @@ We provide the basic code structure for you and you will be implementing the fol
 
 ```
 1. pipelines/ddpm.py
-2. schedulers/scheduling_ddpm.py
+2. schedulers/scheduling_ddpm.py (Done)
 3. train.py
 4. configs/ddpm.yaml
 ```
