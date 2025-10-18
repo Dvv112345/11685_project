@@ -51,7 +51,7 @@ def main():
     logger.info(f"Number of parameters: {num_params / 10 ** 6:.2f}M")
     
     # TODO: ddpm shceduler
-    scheduler = DDPMScheduler(None )
+    scheduler = DDPMScheduler(num_train_timesteps=args.num_train_timesteps)
     # vae 
     vae = None
     if args.latent_ddpm:        
@@ -84,7 +84,13 @@ def main():
     load_checkpoint(unet, scheduler, vae=vae, class_embedder=class_embedder, checkpoint_path=args.ckpt)
     
     # TODO: pipeline
-    pipeline = DDPMPipeline(None)
+    pipeline =  DDPMPipeline(
+        unet=unet,
+        scheduler=scheduler,
+        vae=vae,
+        class_embedder=class_embedder,
+        device=device
+    )
 
     
     logger.info("***** Running Infrence *****")
@@ -92,32 +98,56 @@ def main():
     # TODO: we run inference to generation 5000 images
     # TODO: with cfg, we generate 50 images per class 
     all_images = []
+    batch_size = 50
     if args.use_cfg:
         # generate 50 images per class
         for i in tqdm(range(args.num_classes)):
             logger.info(f"Generating 50 images for class {i}")
-            batch_size = 50
             classes = torch.full((batch_size,), i, dtype=torch.long, device=device)
-            gen_images = None 
+            gen_images = pipeline(num_inference_steps=args.num_inference_steps, 
+                                  batch_size=batch_size, 
+                                  class_labels=classes, 
+                                  generator=generator)
             all_images.append(gen_images)
     else:
         # generate 5000 images
         for _ in tqdm(range(0, 5000, batch_size)):
-            gen_images = None 
+            gen_images = pipeline(num_inference_steps=args.num_inference_steps, 
+                                  batch_size=batch_size, 
+                                  generator=generator)
             all_images.append(gen_images)
-    
+    all_images = torch.cat(all_images, dim=0)
+    all_images = (all_images * 255).clamp(0, 255).to(torch.uint8)
     # TODO: load validation images as reference batch
-    
+    val_dir = args.val_dir
+    val_images = []
+    for fname in os.listdir(val_dir):
+        if fname.endswith(('.png', '.jpg', '.jpeg')):
+            img = Image.open(os.path.join(val_dir, fname)).convert('RGB')
+            img = img.resize((args.unet_in_size, args.unet_in_size))
+            img = torch.tensor(np.array(img)).permute(2, 0, 1).unsqueeze(0) / 255.0
+            val_images.append(img)
+    val_images = torch.cat(val_images, dim=0).to(device)
     
     # TODO: using torchmetrics for evaluation, check the documents of torchmetrics
     import torchmetrics 
-    
     from torchmetrics.image.fid import FrechetInceptionDistance, InceptionScore
     
     # TODO: compute FID and IS
+    # FID: real then fake
+    fid = FrechetInceptionDistance(normalize=True).to(device)
+    inception = InceptionScore(normalize=True).to(device)
+    fid.update(val_images, real=True)
+    fid.update(all_images.float() / 255.0, real=False)
+    fid_score = fid.compute().item()
+
+    # IS: only on generated images
+    inception.update(all_images.float() / 255.0)
+    is_mean, is_std = inception.compute()
     
-        
-    
+    # output to log
+    logger.info(f"FID score: {fid_score:.4f}")
+    logger.info(f"Inception Score: mean={is_mean:.4f}, std={is_std:.4f}")
 
 
 if __name__ == '__main__':
