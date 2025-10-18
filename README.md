@@ -31,7 +31,7 @@ This homework will start from implementing DDPM from scratch.
 We provide the basic code structure for you and you will be implementing the following modules (by filling all TODOs)):
 
 ```
-1. pipelines/ddpm.py
+1. pipelines/ddpm.py (done)
 2. schedulers/scheduling_ddpm.py
 3. train.py
 4. configs/ddpm.yaml
@@ -61,9 +61,9 @@ Download the pretrained weight here: and put it under a folder named 'pretrained
 You need to implement:
 
 ```
-1. models/vae.py
+1. models/vae.py (done)
 2. train.py with vae related stuff
-3. pipeline/ddpm.py with vae related stuff
+3. pipeline/ddpm.py with vae related stuff (done)
 ```
 
 **NOTE: you need to set use_vae to TRUE**
@@ -73,9 +73,9 @@ You need to implement:
 Implement CFG
 
 ```
-1. models/class_embedder.py
+1. models/class_embedder.py (done)
 2. train.py with cfg related stuff
-3. pipeline/ddpm.py with cfg related stuff
+3. pipeline/ddpm.py with cfg related stuff (done)
 ```
 
 **NOTE: you need to set use_cfg to TRUE**
