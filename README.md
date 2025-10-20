@@ -7,12 +7,14 @@
 ```
 python train.py --config configs/ddpm.yaml
 ```
+Finished, 10.18, Jinyi.
 
 **Inference and Evaluating**
 
 ```
 python inference.py inference.py
 ```
+Finished, 10.18, Jinyi.
 
 # 1. Download the data
 
@@ -85,3 +87,4 @@ Implement CFG
 ```
 inference.py
 ```
+
