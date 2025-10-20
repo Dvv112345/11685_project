@@ -43,18 +43,18 @@ class DDPMScheduler(nn.Module):
         # TODO: calculate betas
         if self.beta_schedule == 'linear':
             # This is the DDPM implementation
-            betas = torch.arange(start=beta_start, end=beta_end, step=(beta_end-beta_start)/num_train_timesteps)
+            betas = torch.linspace(start=beta_start, end=beta_end, steps=num_train_timesteps, dtype=torch.float32)
         self.register_buffer("betas", betas)
          
         # TODO: calculate alphas
-        alphas = 1 - betas 
+        alphas = 1.0 - betas 
         self.register_buffer("alphas", alphas)
         # TODO: calculate alpha cumulative product
         alphas_cumprod = torch.cumprod(alphas, dim=0) 
         self.register_buffer("alphas_cumprod", alphas_cumprod)
         
         # TODO: timesteps
-        timesteps = torch.arange(num_train_timesteps)
+        timesteps = torch.arange(1, num_train_timesteps)
         self.register_buffer("timesteps", timesteps)
         
 
@@ -82,7 +82,7 @@ class DDPMScheduler(nn.Module):
             
         # TODO: set timesteps
         self.num_inference_steps = num_inference_steps
-        timesteps = np.arange(0, self.num_train_timesteps, self.num_train_timesteps//num_inference_steps) 
+        timesteps = np.arange(1, self.num_train_timesteps, self.num_train_timesteps//num_inference_steps) 
         self.timesteps = torch.from_numpy(timesteps).to(device)
 
 
@@ -105,6 +105,8 @@ class DDPMScheduler(nn.Module):
         )
         # TODO: caluclate previous timestep
         prev_t = timestep - self.num_train_timesteps//num_inference_steps
+        if prev_t < 0:
+            prev_t = 0
         return prev_t
 
     
