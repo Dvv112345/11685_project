@@ -1,6 +1,6 @@
 run_name: ddpm
 seed: 42
-data_dir: ../imagenet100_128x128
+data_dir: ../subset
 image_size: 128
 batch_size: 8
 num_workers: 2

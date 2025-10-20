@@ -178,7 +178,7 @@ class DDPMScheduler(nn.Module):
         """
         
         # make sure alphas the on the same device as samples
-        alphas_cumprod = self.alphas_cumprod.to(dtype=original_samples.dtype)
+        alphas_cumprod = self.alphas_cumprod.to(device=original_samples.device)
         timesteps = timesteps.to(original_samples.device)
         
         # TODO: get sqrt alphas

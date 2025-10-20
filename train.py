@@ -314,18 +314,16 @@ def main():
     vae_wo_ddp = vae
     # TODO: setup ddim
     if args.use_ddim:
-        scheduler_wo_ddp = DDIMScheduler(args.num_train_timesteps)
+        scheduler_wo_ddp = DDIMScheduler(args.num_train_timesteps, args.num_inference_steps, args.beta_start, args.beta_end, args.beta_schedule, args.variance_type, args.prediction_type, args.clip_sample, args.clip_sample_range)
     else:
-        scheduler_wo_ddp = scheduler
+        scheduler_wo_ddp = DDPMScheduler(args.num_train_timesteps, args.num_inference_steps, args.beta_start, args.beta_end, args.beta_schedule, args.variance_type, args.prediction_type, args.clip_sample, args.clip_sample_range)
     
     # TODO: setup evaluation pipeline
     # NOTE: this pipeline is not differentiable and only for evaluatin
     pipeline = DDPMPipeline(unet=unet_wo_ddp, 
                             scheduler=scheduler_wo_ddp, 
                             vae=vae_wo_ddp, 
-                            class_embedder=class_embedder_wo_ddp, 
-                            device=device, 
-                            image_size=args.image_size)
+                            class_embedder=class_embedder_wo_ddp)
     
     # dump config file
     if is_primary(args):
@@ -375,11 +373,6 @@ def main():
             unet.train()
         except Exception as e:
             print("Unet Training Errors.")
-            raise e
-        try:
-            scheduler.train()
-        except Exception as e:
-            print("Scheduler Training Errors.")
             raise e
         
         
@@ -438,10 +431,7 @@ def main():
             
             # TODO: add noise to images using scheduler
             noisy_images = None
-            try:
-                noisy_images = scheduler.add_noise(images, noise, timesteps)
-            except Exception as e:
-                raise "Error in adding noise using scheduler."
+            noisy_images = scheduler_wo_ddp.add_noise(images, noise, timesteps)
             
             # TODO: model prediction
             model_pred = unet(noisy_images, timesteps, class_emb)
@@ -463,7 +453,11 @@ def main():
             
             # TODO: step your optimizer
             optimizer.step()
-            
+            if args.scheduler_type == "Plateau":
+                scheduler.step(loss)
+            else:
+                scheduler.step()
+
             progress_bar.update(1)
             
             # logger
@@ -482,14 +476,14 @@ def main():
             # random sample 4 classes
             classes = torch.randint(0, args.num_classes, (4,), device=device)
             # TODO: fill pipeline
-            gen_images = pipeline.generate(batch_size=4, 
+            gen_images = pipeline(batch_size=4, 
                                            classes=classes, 
                                            generator=generator, 
                                            num_inference_steps=args.num_inference_steps, 
                                            guidance_scale=args.cfg_guidance_scale)
         else:
             # TODO: fill pipeline
-            gen_images = pipeline.generate(batch_size=4, 
+            gen_images = pipeline(batch_size=4, 
                                            generator=generator, 
                                            num_inference_steps=args.num_inference_steps)
             

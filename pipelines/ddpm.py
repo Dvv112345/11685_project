@@ -96,7 +96,7 @@ class DDPMPipeline:
         for t in self.progress_bar(self.scheduler.timesteps):
             
             # NOTE: this is for CFG
-            if guidance_scale is not None or guidance_scale != 1.0:
+            if classes is not None and guidance_scale is not None and guidance_scale != 1.0:
                 # TODO: implement cfg
                 model_input = torch.cat([image, image], dim=0) 
                 c = torch.cat([uncond_embeds, class_embeds], dim=0)
@@ -108,13 +108,13 @@ class DDPMPipeline:
             # TODO: 1. predict noise model_output
             model_output = self.unet(model_input, t, c)
             
-            if guidance_scale is not None or guidance_scale != 1.0:
+            if classes is not None and guidance_scale is not None and guidance_scale != 1.0:
                 # TODO: implement cfg
                 uncond_model_output, cond_model_output = model_output.chunk(2)
                 model_output = uncond_model_output + guidance_scale * (cond_model_output - uncond_model_output)
             
             # TODO: 2. compute previous image: x_t -> x_t-1 using scheduler
-            image = self.scheduler.step(model_output, t, image).prev_sample
+            image = self.scheduler.step(model_output, t, image)
             
         
         # NOTE: this is for latent DDPM
