@@ -56,6 +56,8 @@ def parse_args():
     parser.add_argument("--prediction_type", type=str, default='epsilon', help="ddpm epsilon type")
     parser.add_argument("--clip_sample", type=str2bool, default=True, help="whether to clip sample at each step of reverse process")
     parser.add_argument("--clip_sample_range", type=float, default=1.0, help="clip sample range")
+    parser.add_argument("--optimizer_type", type=str, default='AdamW', help="Optimizer")
+    parser.add_argument("--scheduler_type", type=str, default='ConsineAnnealingLR', help="LR scheduler")
     
     # unet
     parser.add_argument("--unet_in_size", type=int, default=128, help="unet input image size")
@@ -142,7 +144,6 @@ def main():
         transforms.RandomApply(
             [transforms.RandomRotation(
                 degrees=10, 
-                resample=False, # Use PIL.Image.NEAREST or similar for resampling
                 expand=False
             )], 
             p=P_TRANSFORM[1]
