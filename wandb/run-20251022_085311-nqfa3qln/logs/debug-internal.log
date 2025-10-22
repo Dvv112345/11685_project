@@ -1,7 +1,0 @@
-{"time":"2025-10-22T08:53:11.887398536-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_085311-nqfa3qln/logs/debug-core.log"}
-{"time":"2025-10-22T08:53:12.071426043-04:00","level":"INFO","msg":"stream: created new stream","id":"nqfa3qln"}
-{"time":"2025-10-22T08:53:12.071492906-04:00","level":"INFO","msg":"stream: started","id":"nqfa3qln"}
-{"time":"2025-10-22T08:53:12.071514137-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"nqfa3qln"}
-{"time":"2025-10-22T08:53:12.071527554-04:00","level":"INFO","msg":"handler: started","stream_id":"nqfa3qln"}
-{"time":"2025-10-22T08:53:12.071541848-04:00","level":"INFO","msg":"sender: started","stream_id":"nqfa3qln"}
-{"time":"2025-10-22T08:53:12.243579698-04:00","level":"INFO","msg":"Starting system monitor"}

@@ -1,7 +1,0 @@
-{"time":"2025-10-21T00:09:58.631153846-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251021_000958-gqy371do/logs/debug-core.log"}
-{"time":"2025-10-21T00:09:59.098112481-04:00","level":"INFO","msg":"stream: created new stream","id":"gqy371do"}
-{"time":"2025-10-21T00:09:59.098170569-04:00","level":"INFO","msg":"stream: started","id":"gqy371do"}
-{"time":"2025-10-21T00:09:59.098188903-04:00","level":"INFO","msg":"sender: started","stream_id":"gqy371do"}
-{"time":"2025-10-21T00:09:59.098187501-04:00","level":"INFO","msg":"handler: started","stream_id":"gqy371do"}
-{"time":"2025-10-21T00:09:59.098201606-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"gqy371do"}
-{"time":"2025-10-21T00:09:59.366059495-04:00","level":"INFO","msg":"Starting system monitor"}

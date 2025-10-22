@@ -1,7 +1,0 @@
-{"time":"2025-10-22T09:09:59.189519793-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_090958-j8ltnnoc/logs/debug-core.log"}
-{"time":"2025-10-22T09:09:59.373169123-04:00","level":"INFO","msg":"stream: created new stream","id":"j8ltnnoc"}
-{"time":"2025-10-22T09:09:59.373235044-04:00","level":"INFO","msg":"stream: started","id":"j8ltnnoc"}
-{"time":"2025-10-22T09:09:59.373256403-04:00","level":"INFO","msg":"handler: started","stream_id":"j8ltnnoc"}
-{"time":"2025-10-22T09:09:59.373257529-04:00","level":"INFO","msg":"sender: started","stream_id":"j8ltnnoc"}
-{"time":"2025-10-22T09:09:59.373262772-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"j8ltnnoc"}
-{"time":"2025-10-22T09:09:59.548158019-04:00","level":"INFO","msg":"Starting system monitor"}

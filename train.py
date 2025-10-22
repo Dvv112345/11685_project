@@ -31,10 +31,12 @@ def parse_args():
 
     # data 
     parser.add_argument("--data_dir", type=str, default='./data/imagenet100_128x128/train', help="data folder") 
+    parser.add_argument("--is_cifar_10", type = str2bool, default = 1, help = 'use cifar 10') #jinyi
     parser.add_argument("--image_size", type=int, default=128, help="image size")
     parser.add_argument("--batch_size", type=int, default=4, help="per gpu batch size")
     parser.add_argument("--num_workers", type=int, default=8, help="batch size")
     parser.add_argument("--num_classes", type=int, default=100, help="number of classes in dataset")
+
 
     # training
     parser.add_argument("--run_name", type=str, default=None, help="run_name")
@@ -45,6 +47,7 @@ def parse_args():
     parser.add_argument("--grad_clip", type=float, default=1.0, help="gradient clip")
     parser.add_argument("--seed", type=int, default=42, help="random seed")
     parser.add_argument("--mixed_precision", type=str, default='none', choices=['fp16', 'bf16', 'fp32', 'none'], help='mixed precision')
+    parser.add_argument("--use_val", type = str2bool, default = 1, help = "use val") #jinyi
     
     # ddpm
     parser.add_argument("--num_train_timesteps", type=int, default=1000, help="ddpm training timesteps")
@@ -56,6 +59,8 @@ def parse_args():
     parser.add_argument("--prediction_type", type=str, default='epsilon', help="ddpm epsilon type")
     parser.add_argument("--clip_sample", type=str2bool, default=True, help="whether to clip sample at each step of reverse process")
     parser.add_argument("--clip_sample_range", type=float, default=1.0, help="clip sample range")
+    parser.add_argument("--optimizer_type", type=str, default='AdamW', help="Optimizer")
+    parser.add_argument("--scheduler_type", type=str, default='ConsineAnnealingLR', help="LR scheduler")
     
     # unet
     parser.add_argument("--unet_in_size", type=int, default=128, help="unet input image size")
@@ -68,7 +73,7 @@ def parse_args():
     
     # vae
     parser.add_argument("--latent_ddpm", type=str2bool, default=False, help="use vqvae for latent ddpm")
-    
+    parser.add_argument("--pretrained_vae", type = str, default = "pretrained/model.ckpt", help = "pretrained vae path")
     # cfg
     parser.add_argument("--use_cfg", type=str2bool, default=False, help="use cfg for conditional (latent) ddpm")
     parser.add_argument("--cfg_guidance_scale", type=float, default=2.0, help="cfg for inference")
@@ -78,6 +83,11 @@ def parse_args():
     
     # checkpoint path for inference
     parser.add_argument("--ckpt", type=str, default=None, help="checkpoint path for inference")
+
+    # distributed setting, jinyi
+    parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu", help="device")
+    parser.add_argument("--rank", type=int, default=0, help="process rank (for distributed)")
+    parser.add_argument("--world_size", type=int, default=1, help="world size (for distributed)")
     
     # first parse of command-line args to check for config file
     args = parser.parse_args()
@@ -142,7 +152,6 @@ def main():
         transforms.RandomApply(
             [transforms.RandomRotation(
                 degrees=10, 
-                resample=False, # Use PIL.Image.NEAREST or similar for resampling
                 expand=False
             )], 
             p=P_TRANSFORM[1]
@@ -163,11 +172,18 @@ def main():
         # Ensure the image is resized to the target size after all random spatial transforms
         transforms.Resize((args.image_size, args.image_size)), 
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]), 
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
     # TOOD: use image folder for your train dataset
-
-    train_dataset = datasets.ImageFolder(root=args.data_dir, transform=transform)
+    if args.is_cifar_10:
+        train_dataset = datasets.CIFAR10(
+            root=args.data_dir,
+            train=True,
+            download=False,  # set to True if CIFAR-10 is not yet downloaded
+            transform=transform
+        )
+    else:   
+        train_dataset = datasets.ImageFolder(root=args.data_dir, transform=transform)
     
     # TODO: setup dataloader
     sampler = None 
@@ -177,6 +193,7 @@ def main():
     # TODO: shuffle
     shuffle = False if sampler else True
     # TODO dataloader
+
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=args.batch_size,
@@ -186,22 +203,53 @@ def main():
         pin_memory=True,
         drop_last=True
     )
-    
+
+        # --- Validation dataset / loader (use CIFAR10 test split as val by default) ---
+    val_loader = None
+    if args.use_val:
+        if args.is_cifar_10:
+            val_dataset = datasets.CIFAR10(
+                root=args.data_dir,
+                train=False,   # test split -> use as validation
+                download=False,
+                transform=transform  # evaluation transform; you may want a simpler transform
+            )
+        else:
+            # If have a separate val folder, replace this with ImageFolder
+            val_dataset = datasets.ImageFolder(root=args.data_dir.replace("train", "val"), transform=transform)
+
+        val_sampler = None
+        if args.distributed:
+            val_sampler = torch.utils.data.distributed.DistributedSampler(val_dataset, num_replicas=args.world_size, rank=args.rank, shuffle=False)
+
+        val_loader = torch.utils.data.DataLoader(
+            val_dataset,
+            batch_size=args.batch_size,
+            shuffle=False if val_sampler else False,
+            sampler=val_sampler,
+            num_workers=args.num_workers,
+            pin_memory=True,
+            drop_last=False
+        )
+    else:
+        val_loader = None
+
     # calculate total batch_size
     total_batch_size = args.batch_size * args.world_size 
     args.total_batch_size = total_batch_size
     
     # setup experiment folder
-    if args.run_name is None:
-        args.run_name = f'exp-{len(os.listdir(args.output_dir))}'
-    else:
-        args.run_name = f'exp-{len(os.listdir(args.output_dir))}-{args.run_name}'
-    output_dir = os.path.join(args.output_dir, args.run_name)
-    save_dir = os.path.join(output_dir, 'checkpoints')
     os.makedirs(args.output_dir, exist_ok=True)
+    if args.run_name is None:
+        args.run_name = f"exp-{len(os.listdir(args.output_dir))}"
+    else:
+        args.run_name = f"exp-{len(os.listdir(args.output_dir))}-{args.run_name}"
+    output_dir = os.path.join(args.output_dir, args.run_name)
+    save_dir = os.path.join(output_dir, "checkpoints")
     if is_primary(args):
         os.makedirs(output_dir, exist_ok=True)
         os.makedirs(save_dir, exist_ok=True)
+   
     
     # setup model
     logger.info("Creating model")
@@ -212,30 +260,25 @@ def main():
     logger.info(f"Number of parameters: {num_params / 10 ** 6:.2f}M")
     
     # TODO: ddpm shceduler
-    scheduler = DDPMScheduler(args.num_train_timesteps)
+    # scheduler = DDPMScheduler(args.num_train_timesteps)
     
     # NOTE: this is for latent DDPM 
     vae = None
     if args.latent_ddpm:
         vae = VAE()
         # NOTE: do not change this
-        vae.init_from_ckpt('pretrained/model.ckpt')
+        vae.init_from_ckpt(args.pretrained_vae)
         vae.eval()
         
     # Note: this is for cfg
     class_embedder = None
     if args.use_cfg:
         # TODO: 
-        try:
-            class_embedder = ClassEmbedder(args.num_classes, args.unet_ch)
-        except TypeError:
-            # fallback: only pass num_classes
-            print("Only pass num_classes")
-            class_embedder = ClassEmbedder(args.num_classes)
+        class_embedder = ClassEmbedder(args.num_classes, args.unet_ch)
         
     # send to device
     unet = unet.to(device)
-    scheduler = scheduler.to(device)
+    # scheduler = scheduler.to(device)
     if vae:
         vae = vae.to(device)
     if class_embedder:
@@ -278,6 +321,7 @@ def main():
             optimizer, 
             T_max=max(1, args.num_epochs) 
         )
+        print("Using Cosine Annealing LR.")
     elif scheduler_class is StepLR:
         # Requires step_size and gamma
         scheduler = StepLR(
@@ -293,7 +337,7 @@ def main():
             factor=0.5, 
             patience=5
         )
-    
+    # scheduler = scheduler.to(device)
     # max train steps
     num_update_steps_per_epoch = len(train_loader)
     args.max_train_steps = args.num_epochs * num_update_steps_per_epoch
@@ -313,18 +357,16 @@ def main():
     vae_wo_ddp = vae
     # TODO: setup ddim
     if args.use_ddim:
-        scheduler_wo_ddp = DDIMScheduler(args.num_train_timesteps)
+        scheduler_wo_ddp = DDIMScheduler(args.num_train_timesteps, args.num_inference_steps, args.beta_start, args.beta_end, args.beta_schedule, args.variance_type, args.prediction_type, args.clip_sample, args.clip_sample_range)
     else:
-        scheduler_wo_ddp = scheduler
+        scheduler_wo_ddp = DDPMScheduler(args.num_train_timesteps, args.num_inference_steps, args.beta_start, args.beta_end, args.beta_schedule, args.variance_type, args.prediction_type, args.clip_sample, args.clip_sample_range)
     
     # TODO: setup evaluation pipeline
     # NOTE: this pipeline is not differentiable and only for evaluatin
     pipeline = DDPMPipeline(unet=unet_wo_ddp, 
                             scheduler=scheduler_wo_ddp, 
                             vae=vae_wo_ddp, 
-                            class_embedder=class_embedder_wo_ddp, 
-                            device=device, 
-                            image_size=args.image_size)
+                            class_embedder=class_embedder_wo_ddp)
     
     # dump config file
     if is_primary(args):
@@ -370,17 +412,8 @@ def main():
         loss_m = AverageMeter()
         
         # TODO: set unet and scheduelr to train
-        try:
-            unet.train()
-        except Exception as e:
-            print("Unet Training Errors.")
-            raise e
-        try:
-            scheduler.train()
-        except Exception as e:
-            print("Scheduler Training Errors.")
-            raise e
-        
+        unet.train()
+
         
         # TODO: finish this
         for step, (images, labels) in enumerate(train_loader):
@@ -395,13 +428,7 @@ def main():
             if vae is not None:
                 # use vae to encode images as latents
                 enc = None
-                try:
-                    enc = vae.encode(images)
-                except Exception:
-                    try:
-                        enc = vae(images, encode=True)
-                    except Exception:
-                        enc = None
+                enc = vae.encode(images)
                 if isinstance(enc, torch.Tensor):
                     images = enc
                 elif isinstance(enc, (list, tuple)) and len(enc) > 0 and isinstance(enc[0], torch.Tensor):
@@ -420,11 +447,7 @@ def main():
             # NOTE: this is for CFG
             if class_embedder is not None:
                 # TODO: use class embedder to get class embeddings
-                try:
-                    class_emb = class_embedder(labels)
-                except Exception as e:
-                    raise e
-                    # class_emb = class_embedder(labels.long())
+                class_emb = class_embedder(labels)
             else:
                 # NOTE: if not cfg, set class_emb to None
                 class_emb = None
@@ -437,10 +460,7 @@ def main():
             
             # TODO: add noise to images using scheduler
             noisy_images = None
-            try:
-                noisy_images = scheduler.add_noise(images, noise, timesteps)
-            except Exception as e:
-                raise "Error in adding noise using scheduler."
+            noisy_images = scheduler_wo_ddp.add_noise(images, noise, timesteps)
             
             # TODO: model prediction
             model_pred = unet(noisy_images, timesteps, class_emb)
@@ -462,35 +482,96 @@ def main():
             
             # TODO: step your optimizer
             optimizer.step()
-            
+            if args.scheduler_type == "Plateau":
+                scheduler.step(loss)
+            else:
+                scheduler.step()
+
             progress_bar.update(1)
             
-            # logger
-            if step % 100 == 0 and is_primary(args):
-                logger.info(f"Epoch {epoch+1}/{args.num_epochs}, Step {step}/{num_update_steps_per_epoch}, Loss {loss.item()} ({loss_m.avg})")
-                wandb_logger.log({'loss': loss_m.avg})
+        # logger: only update when finish one epoch
+        logger.info(f"Epoch {epoch+1}/{args.num_epochs}, Step {step}/{num_update_steps_per_epoch}, Loss {loss.item()} ({loss_m.avg})")
+        wandb_logger.log({'loss': loss_m.avg})
 
         # validation
         # send unet to evaluation mode
         unet.eval()        
         generator = torch.Generator(device=device)
         generator.manual_seed(epoch + args.seed)
+
+        # add validation, Jinyi
+        # -------------------------
+        # Validation (compute val loss)
+        # -------------------------
+        max_val_batches = 100
+        val_m = AverageMeter()
+        if val_loader is not None:
+            unet.eval()
+            with torch.no_grad():
+                # max_val_batches = args.max_val_batches
+                for vstep, (vimages, vlabels) in enumerate(val_loader):
+                    if max_val_batches > 0 and vstep >= max_val_batches:
+                        break
+
+                    vbatch = vimages.size(0)
+                    vimages = vimages.to(device, non_blocking=True)
+                    vlabels = vlabels.to(device, non_blocking=True)
+
+                    # encode with VAE if using latent ddpm
+                    if vae is not None:
+                        enc = vae.encode(vimages)
+                        if isinstance(enc, torch.Tensor):
+                            vimages_latent = enc
+                        elif isinstance(enc, (list, tuple)) and len(enc) > 0 and isinstance(enc[0], torch.Tensor):
+                            vimages_latent = enc[0]
+                        elif hasattr(enc, 'latent') and isinstance(enc.latent, torch.Tensor):
+                            vimages_latent = enc.latent
+                        else:
+                            vimages_latent = vimages
+                        vimages = vimages_latent * 0.1845
+
+                    # sample noise and timesteps same as training
+                    vnoise = torch.randn_like(vimages, device=device)
+                    vtimesteps = torch.randint(0, args.num_train_timesteps, (vbatch,), device=device).long()
+
+                    vnoisy = scheduler_wo_ddp.add_noise(vimages, vnoise, vtimesteps)
+                    vpred = unet(vnoisy, vtimesteps, None if class_embedder is None else class_embedder(vlabels))
+
+                    if args.prediction_type == 'epsilon':
+                        vtarget = vnoise
+                    else:
+                        vtarget = vnoise  # keep fallback
+
+                    vloss = F.mse_loss(vpred, vtarget)
+                    val_m.update(vloss.item(), n=vbatch)
+
+            # log validation loss
+            logger.info(f"Epoch {epoch+1}/{args.num_epochs} Validation Loss: {val_m.avg:.6f}")
+            if is_primary(args):
+                wandb_logger.log({'val_loss': val_m.avg})
+
+            # step ReduceLROnPlateau with val loss
+            if args.scheduler_type == "Plateau" and scheduler is not None:
+                scheduler.step(val_m.avg)
+        else:
+            logger.info("No validation loader configured (val_loader is None)")
+
         
         # NOTE: this is for CFG
         if args.use_cfg:
             # random sample 4 classes
             classes = torch.randint(0, args.num_classes, (4,), device=device)
             # TODO: fill pipeline
-            gen_images = pipeline.generate(batch_size=4, 
-                                           classes=classes, 
-                                           generator=generator, 
-                                           num_inference_steps=args.num_inference_steps, 
-                                           guidance_scale=args.cfg_guidance_scale)
+            gen_images = pipeline(batch_size=4, 
+                                    classes=classes, 
+                                    generator=generator, 
+                                    num_inference_steps=args.num_inference_steps, 
+                                    guidance_scale=args.cfg_guidance_scale)
         else:
             # TODO: fill pipeline
-            gen_images = pipeline.generate(batch_size=4, 
-                                           generator=generator, 
-                                           num_inference_steps=args.num_inference_steps)
+            gen_images = pipeline(batch_size=4, 
+                                    generator=generator, 
+                                    num_inference_steps=args.num_inference_steps)
             
         # create a blank canvas for the grid
         grid_image = Image.new('RGB', (4 * args.image_size, 1 * args.image_size))
@@ -505,8 +586,9 @@ def main():
             wandb_logger.log({'gen_images': wandb.Image(grid_image)})
             
         # save checkpoint
-        if is_primary(args):
-            save_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
+        if epoch % 100 == 0:
+            if is_primary(args):
+                save_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
 
 
 if __name__ == '__main__':

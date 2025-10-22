@@ -1,9 +1,0 @@
-{"time":"2025-10-22T13:42:35.078879872-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_134234-ytia1ysj/logs/debug-core.log"}
-{"time":"2025-10-22T13:42:35.29359867-04:00","level":"INFO","msg":"stream: created new stream","id":"ytia1ysj"}
-{"time":"2025-10-22T13:42:35.293729233-04:00","level":"INFO","msg":"stream: started","id":"ytia1ysj"}
-{"time":"2025-10-22T13:42:35.293775049-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"ytia1ysj"}
-{"time":"2025-10-22T13:42:35.293858341-04:00","level":"INFO","msg":"sender: started","stream_id":"ytia1ysj"}
-{"time":"2025-10-22T13:42:35.293776364-04:00","level":"INFO","msg":"handler: started","stream_id":"ytia1ysj"}
-{"time":"2025-10-22T13:42:35.464571764-04:00","level":"INFO","msg":"Starting system monitor"}
-{"time":"2025-10-22T13:47:50.891051559-04:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/files/ye3-carnegie-mellon-university/ddpm/ytia1ysj/file_stream"}
-{"time":"2025-10-22T13:47:50.891113719-04:00","level":"ERROR+4","msg":"filestream: fatal error: filestream: failed to upload: 404 Not Found path=files/ye3-carnegie-mellon-university/ddpm/ytia1ysj/file_stream: {\"error\":\"run ddpm/ytia1ysj not found while streaming file\"}"}
