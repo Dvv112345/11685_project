@@ -43,18 +43,18 @@ class DDPMScheduler(nn.Module):
         # TODO: calculate betas
         if self.beta_schedule == 'linear':
             # This is the DDPM implementation
-            betas = torch.arange(start=beta_start, end=beta_end, step=(beta_end-beta_start)/num_train_timesteps)
+            betas = torch.linspace(start=beta_start, end=beta_end, steps=num_train_timesteps, dtype=torch.float32)
         self.register_buffer("betas", betas)
          
         # TODO: calculate alphas
-        alphas = 1 - betas 
+        alphas = 1.0 - betas 
         self.register_buffer("alphas", alphas)
         # TODO: calculate alpha cumulative product
         alphas_cumprod = torch.cumprod(alphas, dim=0) 
         self.register_buffer("alphas_cumprod", alphas_cumprod)
         
         # TODO: timesteps
-        timesteps = torch.arange(num_train_timesteps)
+        timesteps = torch.arange(1, num_train_timesteps)
         self.register_buffer("timesteps", timesteps)
         
 
@@ -82,7 +82,7 @@ class DDPMScheduler(nn.Module):
             
         # TODO: set timesteps
         self.num_inference_steps = num_inference_steps
-        timesteps = np.arange(0, self.num_train_timesteps, self.num_train_timesteps//num_inference_steps) 
+        timesteps = np.arange(1, self.num_train_timesteps, self.num_train_timesteps//num_inference_steps) 
         self.timesteps = torch.from_numpy(timesteps).to(device)
 
 
@@ -105,6 +105,8 @@ class DDPMScheduler(nn.Module):
         )
         # TODO: caluclate previous timestep
         prev_t = timestep - self.num_train_timesteps//num_inference_steps
+        if prev_t < 0:
+            prev_t = 0
         return prev_t
 
     
@@ -178,7 +180,7 @@ class DDPMScheduler(nn.Module):
         """
         
         # make sure alphas the on the same device as samples
-        alphas_cumprod = self.alphas_cumprod.to(dtype=original_samples.dtype)
+        alphas_cumprod = self.alphas_cumprod.to(device=original_samples.device)
         timesteps = timesteps.to(original_samples.device)
         
         # TODO: get sqrt alphas
@@ -231,15 +233,15 @@ class DDPMScheduler(nn.Module):
         # TODO: 1. compute alphas, betas
         alpha_prod_t = self.alphas_cumprod[t] 
         alpha_prod_t_prev = self.alphas_cumprod[prev_t]  
-        beta_prod_t = None
-        beta_prod_t_prev = None
+        beta_prod_t = 1-alpha_prod_t
+        beta_prod_t_prev = 1-alpha_prod_t_prev
         current_alpha_t = self.alphas[t] 
         current_beta_t = self.betas[t]
         
         # TODO: 2. compute predicted original sample from predicted noise also called
         # "predicted x_0" of formula (15) from https://arxiv.org/pdf/2006.11239.pdf
         if self.prediction_type == 'epsilon':
-            pred_original_sample = (sample - torch.sqrt(1-alpha_prod_t)*model_output) / torch.sqrt(alpha_prod_t) 
+            pred_original_sample = (sample - torch.sqrt(beta_prod_t)*model_output) / torch.sqrt(alpha_prod_t) 
         else:
             raise NotImplementedError(f"Prediction type {self.prediction_type} not implemented.")
 
@@ -251,8 +253,8 @@ class DDPMScheduler(nn.Module):
 
         # TODO: 4. Compute coefficients for pred_original_sample x_0 and current sample x_t
         # See formula (7) from https://arxiv.org/pdf/2006.11239.pdf
-        pred_original_sample_coeff = torch.sqrt(alpha_prod_t_prev)*current_beta_t / (1-alpha_prod_t) 
-        current_sample_coeff = torch.sqrt(current_alpha_t)*(1-alpha_prod_t_prev) / (1-alpha_prod_t) 
+        pred_original_sample_coeff = torch.sqrt(alpha_prod_t_prev)*current_beta_t / (beta_prod_t) 
+        current_sample_coeff = torch.sqrt(current_alpha_t)*(beta_prod_t_prev) / (beta_prod_t) 
 
         # 5. Compute predicted previous sample µ_t
         # See formula (7) from https://arxiv.org/pdf/2006.11239.pdf

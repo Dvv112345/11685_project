@@ -563,15 +563,15 @@ def main():
             classes = torch.randint(0, args.num_classes, (4,), device=device)
             # TODO: fill pipeline
             gen_images = pipeline(batch_size=4, 
-                                    classes=classes, 
-                                    generator=generator, 
-                                    num_inference_steps=args.num_inference_steps, 
-                                    guidance_scale=args.cfg_guidance_scale)
+                                           classes=classes, 
+                                           generator=generator, 
+                                           num_inference_steps=args.num_inference_steps, 
+                                           guidance_scale=args.cfg_guidance_scale)
         else:
             # TODO: fill pipeline
             gen_images = pipeline(batch_size=4, 
-                                    generator=generator, 
-                                    num_inference_steps=args.num_inference_steps)
+                                           generator=generator, 
+                                           num_inference_steps=args.num_inference_steps)
             
         # create a blank canvas for the grid
         grid_image = Image.new('RGB', (4 * args.image_size, 1 * args.image_size))

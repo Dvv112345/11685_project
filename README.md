@@ -46,7 +46,7 @@ A very basic U-Net architecture is provided to you, and you will need to improve
 Implement the DDIM from scratch:
 
 ```
-1. schedulers/scheduling_ddpm.py
+1. schedulers/scheduling_ddpm.py (Done)
 2. create a config with ddim by setting use_ddim to True
 ```
 
