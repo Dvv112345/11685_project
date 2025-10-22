@@ -1,0 +1,13 @@
+10/20/2025 20:36:46 - INFO - __main__ - ***** Training arguments *****
+10/20/2025 20:36:46 - INFO - __main__ - Namespace(config='configs/ddpm.yaml', data_dir='../data/subset', image_size=128, batch_size=16, num_workers=2, num_classes=10, run_name='exp-0-ddpm', output_dir='/ocean/projects/cis250019p/jye9/11685-project/experiments', num_epochs=5, learning_rate=0.01, weight_decay=0.01, grad_clip=1.0, seed=42, mixed_precision='none', num_train_timesteps=1000, num_inference_steps=1000, beta_start=0.0001, beta_end=0.02, beta_schedule='linear', variance_type='fixed_small', prediction_type='epsilon', clip_sample=True, clip_sample_range=1.0, optimizer_type='AdamW', scheduler_type='ConsineAnnealingLR', unet_in_size=128, unet_in_ch=3, unet_ch=128, unet_ch_mult=[1, 2, 2, 4], unet_attn=[2, 3], unet_num_res_blocks=2, unet_dropout=0.0, latent_ddpm=False, use_cfg=False, cfg_guidance_scale=2.0, use_ddim=False, ckpt=None, predictor_type='epsilon', distributed=False, world_size=1, rank=0, local_rank=0, device='cuda', total_batch_size=16, max_train_steps=15)
+10/20/2025 20:36:46 - INFO - __main__ - ***** Running training *****
+10/20/2025 20:36:46 - INFO - __main__ -   Num examples = 63
+10/20/2025 20:36:46 - INFO - __main__ -   Num Epochs = 5
+10/20/2025 20:36:46 - INFO - __main__ -   Instantaneous batch size per device = 16
+10/20/2025 20:36:46 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 16
+10/20/2025 20:36:46 - INFO - __main__ -   Total optimization steps per epoch 3
+10/20/2025 20:36:46 - INFO - __main__ -   Total optimization steps = 15
+  0%|                                                                                        | 0/15 [00:00<?, ?it/s]10/20/2025 20:36:46 - INFO - __main__ - Epoch 1/5
+  7%|█████▎                                                                          | 1/15 [00:02<00:32,  2.34s/it]10/20/2025 20:36:48 - INFO - __main__ - Epoch 1/5, Step 0/3, Loss 0.9983724355697632 (0.9983724355697632)
+ 20%|████████████████                                                                | 3/15 [00:03<00:10,  1.13it/s]
+  4%|██▊                                                                           | 36/999 [00:02<00:50, 19.10it/s]

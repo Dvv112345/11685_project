@@ -1,0 +1,15 @@
+{"time":"2025-10-22T13:38:04.233413182-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_133804-rebef1xr/logs/debug-core.log"}
+{"time":"2025-10-22T13:38:04.417485958-04:00","level":"INFO","msg":"stream: created new stream","id":"rebef1xr"}
+{"time":"2025-10-22T13:38:04.417543155-04:00","level":"INFO","msg":"stream: started","id":"rebef1xr"}
+{"time":"2025-10-22T13:38:04.417555487-04:00","level":"INFO","msg":"sender: started","stream_id":"rebef1xr"}
+{"time":"2025-10-22T13:38:04.417554521-04:00","level":"INFO","msg":"handler: started","stream_id":"rebef1xr"}
+{"time":"2025-10-22T13:38:04.417572747-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"rebef1xr"}
+{"time":"2025-10-22T13:38:04.670639323-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-10-22T13:41:49.916367664-04:00","level":"INFO","msg":"stream: closing","id":"rebef1xr"}
+{"time":"2025-10-22T13:41:49.928227846-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-10-22T13:41:49.928267117-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-10-22T13:41:50.337755662-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-10-22T13:41:50.523198638-04:00","level":"INFO","msg":"sender: closed","stream_id":"rebef1xr"}
+{"time":"2025-10-22T13:41:50.5231845-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"rebef1xr"}
+{"time":"2025-10-22T13:41:50.523882448-04:00","level":"INFO","msg":"handler: closed","stream_id":"rebef1xr"}
+{"time":"2025-10-22T13:41:50.523956979-04:00","level":"INFO","msg":"stream: closed","id":"rebef1xr"}

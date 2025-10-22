@@ -1,0 +1,9 @@
+{"time":"2025-10-22T13:45:40.000562393-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_134539-37pq7r8x/logs/debug-core.log"}
+{"time":"2025-10-22T13:45:40.215104592-04:00","level":"INFO","msg":"stream: created new stream","id":"37pq7r8x"}
+{"time":"2025-10-22T13:45:40.215208773-04:00","level":"INFO","msg":"stream: started","id":"37pq7r8x"}
+{"time":"2025-10-22T13:45:40.215247503-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"37pq7r8x"}
+{"time":"2025-10-22T13:45:40.215253236-04:00","level":"INFO","msg":"sender: started","stream_id":"37pq7r8x"}
+{"time":"2025-10-22T13:45:40.215329464-04:00","level":"INFO","msg":"handler: started","stream_id":"37pq7r8x"}
+{"time":"2025-10-22T13:45:40.329549694-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-10-22T13:47:55.643233697-04:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/files/ye3-carnegie-mellon-university/ddpm/37pq7r8x/file_stream"}
+{"time":"2025-10-22T13:47:55.643297372-04:00","level":"ERROR+4","msg":"filestream: fatal error: filestream: failed to upload: 404 Not Found path=files/ye3-carnegie-mellon-university/ddpm/37pq7r8x/file_stream: {\"error\":\"run ddpm/37pq7r8x not found while streaming file\"}"}

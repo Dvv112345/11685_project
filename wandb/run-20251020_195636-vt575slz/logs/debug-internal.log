@@ -1,0 +1,7 @@
+{"time":"2025-10-20T19:56:36.985372276-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251020_195636-vt575slz/logs/debug-core.log"}
+{"time":"2025-10-20T19:56:37.914584859-04:00","level":"INFO","msg":"stream: created new stream","id":"vt575slz"}
+{"time":"2025-10-20T19:56:37.914640141-04:00","level":"INFO","msg":"stream: started","id":"vt575slz"}
+{"time":"2025-10-20T19:56:37.914661143-04:00","level":"INFO","msg":"handler: started","stream_id":"vt575slz"}
+{"time":"2025-10-20T19:56:37.914665948-04:00","level":"INFO","msg":"sender: started","stream_id":"vt575slz"}
+{"time":"2025-10-20T19:56:37.914673558-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"vt575slz"}
+{"time":"2025-10-20T19:56:38.202833392-04:00","level":"INFO","msg":"Starting system monitor"}

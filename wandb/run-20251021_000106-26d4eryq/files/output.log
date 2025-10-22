@@ -1,0 +1,87 @@
+10/21/2025 00:01:07 - INFO - __main__ - ***** Training arguments *****
+10/21/2025 00:01:07 - INFO - __main__ - Namespace(config='configs/ddpm.yaml', data_dir='/ocean/projects/cis250019p/jye9/11685-project/data', image_size=32, batch_size=64, num_workers=4, num_classes=10, run_name='exp-9-ddpm', output_dir='/ocean/projects/cis250019p/jye9/11685-project/experiments', num_epochs=100, learning_rate=0.0001, weight_decay=0.008, grad_clip=1.0, seed=42, mixed_precision='none', num_train_timesteps=1000, num_inference_steps=1000, beta_start=0.0001, beta_end=0.01, beta_schedule='linear', variance_type='fixed_small', prediction_type='epsilon', clip_sample=True, clip_sample_range=1.0, optimizer_type='AdamW', scheduler_type='ConsineAnnealingLR', unet_in_size=32, unet_in_ch=3, unet_ch=64, unet_ch_mult=[1, 2, 2, 4], unet_attn=[2, 3], unet_num_res_blocks=1, unet_dropout=0.2, latent_ddpm=False, pretrained_vae='pretrained/model.ckpt', use_cfg=False, cfg_guidance_scale=2.0, use_ddim=False, ckpt=None, predictor_type='epsilon', distributed=False, world_size=1, rank=0, local_rank=0, device='cuda', total_batch_size=64, max_train_steps=78100)
+10/21/2025 00:01:07 - INFO - __main__ - ***** Running training *****
+10/21/2025 00:01:07 - INFO - __main__ -   Num examples = 50000
+10/21/2025 00:01:07 - INFO - __main__ -   Num Epochs = 100
+10/21/2025 00:01:07 - INFO - __main__ -   Instantaneous batch size per device = 64
+10/21/2025 00:01:07 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 64
+10/21/2025 00:01:07 - INFO - __main__ -   Total optimization steps per epoch 781
+10/21/2025 00:01:07 - INFO - __main__ -   Total optimization steps = 78100
+  0%|                                                                                     | 0/78100 [00:00<?, ?it/s]10/21/2025 00:01:07 - INFO - __main__ - Epoch 1/100
+  0%|                                                                          | 1/78100 [00:00<15:23:14,  1.41it/s]10/21/2025 00:01:08 - INFO - __main__ - Epoch 1/100, Step 0/781, Loss 0.9998958110809326 (0.9998958110809326)
+  0%|                                                                         | 101/78100 [00:06<1:13:25, 17.71it/s]10/21/2025 00:01:13 - INFO - __main__ - Epoch 1/100, Step 100/781, Loss 0.8408101797103882 (0.8958804324121759)
+  0%|▏                                                                        | 201/78100 [00:11<1:13:05, 17.76it/s]10/21/2025 00:01:19 - INFO - __main__ - Epoch 1/100, Step 200/781, Loss 0.647172212600708 (0.8372892574291324)
+  0%|▎                                                                        | 301/78100 [00:17<1:13:15, 17.70it/s]10/21/2025 00:01:25 - INFO - __main__ - Epoch 1/100, Step 300/781, Loss 0.4581454396247864 (0.7282593910678281)
+  1%|▎                                                                        | 401/78100 [00:23<1:12:50, 17.78it/s]10/21/2025 00:01:30 - INFO - __main__ - Epoch 1/100, Step 400/781, Loss 0.3164072036743164 (0.6496573660587729)
+  1%|▍                                                                        | 501/78100 [00:28<1:13:11, 17.67it/s]10/21/2025 00:01:36 - INFO - __main__ - Epoch 1/100, Step 500/781, Loss 0.2113717794418335 (0.569018459546114)
+  1%|▌                                                                        | 601/78100 [00:34<1:12:18, 17.86it/s]10/21/2025 00:01:42 - INFO - __main__ - Epoch 1/100, Step 600/781, Loss 0.15742522478103638 (0.5064569126548069)
+  1%|▋                                                                        | 701/78100 [00:40<1:12:42, 17.74it/s]10/21/2025 00:01:47 - INFO - __main__ - Epoch 1/100, Step 700/781, Loss 0.09302433580160141 (0.4505015709324502)
+100%|████████████████████████████████████████████████████████████████████████████| 999/999 [00:08<00:00, 119.18it/s]
+10/21/2025 00:02:00 - INFO - numexpr.utils - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+10/21/2025 00:02:00 - INFO - numexpr.utils - NumExpr defaulting to 16 threads.
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-9-ddpm/checkpoints/checkpoint_epoch_0.pth
+10/21/2025 00:02:01 - INFO - __main__ - Epoch 2/100
+10/21/2025 00:02:01 - INFO - __main__ - Epoch 2/100, Step 0/781, Loss 0.07896696776151657 (0.07896696776151657)
+  1%|▊                                                                        | 881/78100 [00:59<1:12:10, 17.83it/s]10/21/2025 00:02:07 - INFO - __main__ - Epoch 2/100, Step 100/781, Loss 0.06927268952131271 (0.08210871114146591)
+  1%|▉                                                                        | 981/78100 [01:05<1:12:27, 17.74it/s]10/21/2025 00:02:13 - INFO - __main__ - Epoch 2/100, Step 200/781, Loss 0.08183026313781738 (0.0776721716520205)
+  1%|▉                                                                       | 1081/78100 [01:11<1:12:15, 17.77it/s]10/21/2025 00:02:18 - INFO - __main__ - Epoch 2/100, Step 300/781, Loss 0.04809906333684921 (0.07382376775442563)
+  2%|█                                                                       | 1181/78100 [01:16<1:12:10, 17.76it/s]10/21/2025 00:02:24 - INFO - __main__ - Epoch 2/100, Step 400/781, Loss 0.08705475181341171 (0.07110045697920934)
+  2%|█▏                                                                      | 1281/78100 [01:22<1:12:01, 17.78it/s]10/21/2025 00:02:30 - INFO - __main__ - Epoch 2/100, Step 500/781, Loss 0.07792825996875763 (0.06921187938449387)
+  2%|█▎                                                                      | 1381/78100 [01:28<1:12:24, 17.66it/s]10/21/2025 00:02:35 - INFO - __main__ - Epoch 2/100, Step 600/781, Loss 0.05900319665670395 (0.06765454949287329)
+  2%|█▎                                                                      | 1481/78100 [01:33<1:12:32, 17.60it/s]10/21/2025 00:02:41 - INFO - __main__ - Epoch 2/100, Step 700/781, Loss 0.08287245035171509 (0.0663842401293222)
+100%|████████████████████████████████████████████████████████████████████████████| 999/999 [00:08<00:00, 114.63it/s]
+10/21/2025 00:02:54 - INFO - __main__ - Epoch 3/100█████████████████████████████▊| 996/999 [00:08<00:00, 115.87it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-9-ddpm/checkpoints/checkpoint_epoch_1.pth
+  2%|█▍                                                                     | 1563/78100 [01:47<30:33:28,  1.44s/it]10/21/2025 00:02:55 - INFO - __main__ - Epoch 3/100, Step 0/781, Loss 0.07834865897893906 (0.07834865897893906)
+  2%|█▌                                                                      | 1663/78100 [01:53<1:12:10, 17.65it/s]10/21/2025 00:03:00 - INFO - __main__ - Epoch 3/100, Step 100/781, Loss 0.0405355840921402 (0.06054179731867101)
+  2%|█▋                                                                      | 1763/78100 [01:58<1:11:43, 17.74it/s]10/21/2025 00:03:06 - INFO - __main__ - Epoch 3/100, Step 200/781, Loss 0.06018151342868805 (0.05857991666268947)
+  2%|█▋                                                                      | 1863/78100 [02:04<1:12:29, 17.53it/s]10/21/2025 00:03:12 - INFO - __main__ - Epoch 3/100, Step 300/781, Loss 0.047961533069610596 (0.05833501448588712)
+  3%|█▊                                                                      | 1963/78100 [02:10<1:11:59, 17.63it/s]10/21/2025 00:03:17 - INFO - __main__ - Epoch 3/100, Step 400/781, Loss 0.06503293663263321 (0.05768427387938981)
+  3%|█▉                                                                      | 2063/78100 [02:15<1:12:13, 17.55it/s]10/21/2025 00:03:23 - INFO - __main__ - Epoch 3/100, Step 500/781, Loss 0.055677976459264755 (0.0572168075864365)
+  3%|█▉                                                                      | 2163/78100 [02:21<1:11:19, 17.75it/s]10/21/2025 00:03:29 - INFO - __main__ - Epoch 3/100, Step 600/781, Loss 0.057778339833021164 (0.05671128585079248)
+  3%|██                                                                      | 2263/78100 [02:27<1:10:50, 17.84it/s]10/21/2025 00:03:34 - INFO - __main__ - Epoch 3/100, Step 700/781, Loss 0.05835910886526108 (0.056625517297764646)
+100%|████████████████████████████████████████████████████████████████████████████| 999/999 [00:08<00:00, 112.28it/s]
+10/21/2025 00:03:48 - INFO - __main__ - Epoch 4/100█████████████████████████████▏| 988/999 [00:08<00:00, 112.48it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-9-ddpm/checkpoints/checkpoint_epoch_2.pth
+10/21/2025 00:03:48 - INFO - __main__ - Epoch 4/100, Step 0/781, Loss 0.040211934596300125 (0.040211934596300125)
+  3%|██▎                                                                     | 2443/78100 [02:46<1:11:49, 17.56it/s]10/21/2025 00:03:54 - INFO - __main__ - Epoch 4/100, Step 100/781, Loss 0.06048496067523956 (0.05346389981632185)
+  3%|██▎                                                                     | 2543/78100 [02:52<1:11:05, 17.71it/s]10/21/2025 00:04:00 - INFO - __main__ - Epoch 4/100, Step 200/781, Loss 0.06000072881579399 (0.05369717429452275)
+  3%|██▍                                                                     | 2643/78100 [02:58<1:11:15, 17.65it/s]10/21/2025 00:04:05 - INFO - __main__ - Epoch 4/100, Step 300/781, Loss 0.044591568410396576 (0.05373957045252537)
+  4%|██▌                                                                     | 2743/78100 [03:03<1:10:38, 17.78it/s]10/21/2025 00:04:11 - INFO - __main__ - Epoch 4/100, Step 400/781, Loss 0.04706329107284546 (0.05333267392455937)
+  4%|██▌                                                                     | 2843/78100 [03:09<1:10:51, 17.70it/s]10/21/2025 00:04:17 - INFO - __main__ - Epoch 4/100, Step 500/781, Loss 0.05635715276002884 (0.053771460692801636)
+  4%|██▋                                                                     | 2943/78100 [03:15<1:11:02, 17.63it/s]10/21/2025 00:04:22 - INFO - __main__ - Epoch 4/100, Step 600/781, Loss 0.05142636224627495 (0.053791694615823456)
+  4%|██▊                                                                     | 3044/78100 [03:20<1:10:57, 17.63it/s]10/21/2025 00:04:28 - INFO - __main__ - Epoch 4/100, Step 700/781, Loss 0.06936785578727722 (0.05340809295865336)
+100%|████████████████████████████████████████████████████████████████████████████| 999/999 [00:08<00:00, 114.25it/s]
+10/21/2025 00:04:42 - INFO - __main__ - Epoch 5/100█████████████████████████████▊| 997/999 [00:08<00:00, 117.48it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-9-ddpm/checkpoints/checkpoint_epoch_3.pth
+10/21/2025 00:04:42 - INFO - __main__ - Epoch 5/100, Step 0/781, Loss 0.03797115013003349 (0.03797115013003349)
+  4%|██▉                                                                     | 3224/78100 [03:40<1:10:21, 17.74it/s]10/21/2025 00:04:48 - INFO - __main__ - Epoch 5/100, Step 100/781, Loss 0.04183798283338547 (0.05260682677721033)
+  4%|███                                                                     | 3324/78100 [03:46<1:11:01, 17.55it/s]10/21/2025 00:04:53 - INFO - __main__ - Epoch 5/100, Step 200/781, Loss 0.058380093425512314 (0.052045873343129066)
+  4%|███▏                                                                    | 3424/78100 [03:51<1:09:53, 17.81it/s]10/21/2025 00:04:59 - INFO - __main__ - Epoch 5/100, Step 300/781, Loss 0.0558336079120636 (0.05221759643640827)
+  5%|███▏                                                                    | 3524/78100 [03:57<1:10:18, 17.68it/s]10/21/2025 00:05:05 - INFO - __main__ - Epoch 5/100, Step 400/781, Loss 0.05253935977816582 (0.051931134882636204)
+  5%|███▎                                                                    | 3624/78100 [04:03<1:10:23, 17.64it/s]10/21/2025 00:05:10 - INFO - __main__ - Epoch 5/100, Step 500/781, Loss 0.05654573440551758 (0.05194677224386476)
+  5%|███▍                                                                    | 3724/78100 [04:08<1:10:07, 17.68it/s]10/21/2025 00:05:16 - INFO - __main__ - Epoch 5/100, Step 600/781, Loss 0.06770362704992294 (0.052133167506553564)
+  5%|███▌                                                                    | 3824/78100 [04:14<1:09:35, 17.79it/s]10/21/2025 00:05:22 - INFO - __main__ - Epoch 5/100, Step 700/781, Loss 0.058508411049842834 (0.05186490775663911)
+100%|████████████████████████████████████████████████████████████████████████████| 999/999 [00:08<00:00, 118.41it/s]
+Traceback (most recent call last):██████████████████████████████████████████████▊| 997/999 [00:08<00:00, 114.90it/s]
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/serialization.py", line 967, in save
+    _save(
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/serialization.py", line 1268, in _save
+    zip_file.write_record(name, storage, num_bytes)
+RuntimeError: [enforce fail at inline_container.cc:858] . PytorchStreamWriter failed writing file data/79: file write failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/jet/home/jye9/Project/11685_project/train.py", line 508, in <module>
+    main()
+  File "/jet/home/jye9/Project/11685_project/train.py", line 504, in main
+    save_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
+  File "/jet/home/jye9/Project/11685_project/utils/checkpoint.py", line 50, in save_checkpoint
+    torch.save(checkpoint, checkpoint_path)
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/serialization.py", line 966, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/serialization.py", line 798, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:664] . unexpected pos 10036608 vs 10036496

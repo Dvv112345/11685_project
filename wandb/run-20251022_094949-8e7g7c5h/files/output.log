@@ -1,0 +1,92 @@
+10/22/2025 09:49:50 - INFO - __main__ - ***** Training arguments *****
+10/22/2025 09:49:50 - INFO - __main__ - Namespace(config='configs/ddpm.yaml', data_dir='/ocean/projects/cis250019p/jye9/11685-project/data', image_size=32, batch_size=64, num_workers=4, num_classes=10, run_name='exp-2-ddpm', output_dir='/ocean/projects/cis250019p/jye9/11685-project/experiments', num_epochs=30, learning_rate=0.0001, weight_decay=0, grad_clip=1.0, seed=42, mixed_precision='none', num_train_timesteps=2000, num_inference_steps=100, beta_start=0.0001, beta_end=0.02, beta_schedule='linear', variance_type='fixed_small', prediction_type='epsilon', clip_sample=True, clip_sample_range=1.0, optimizer_type='AdamW', scheduler_type='ConsineAnnealingLR', unet_in_size=32, unet_in_ch=3, unet_ch=128, unet_ch_mult=[1, 2, 2, 2], unet_attn=[1, 2, 3], unet_num_res_blocks=2, unet_dropout=0.2, latent_ddpm=False, pretrained_vae='/ocean/projects/cis250019p/jye9/11685-project/pretrained/model.ckpt', use_cfg=False, cfg_guidance_scale=2.0, use_ddim=False, ckpt=None, device='cuda', rank=0, world_size=1, predictor_type='epsilon', distributed=False, local_rank=0, total_batch_size=64, max_train_steps=23430)
+10/22/2025 09:49:50 - INFO - __main__ - ***** Running training *****
+10/22/2025 09:49:50 - INFO - __main__ -   Num examples = 50000
+10/22/2025 09:49:50 - INFO - __main__ -   Num Epochs = 30
+10/22/2025 09:49:50 - INFO - __main__ -   Instantaneous batch size per device = 64
+10/22/2025 09:49:50 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 64
+10/22/2025 09:49:50 - INFO - __main__ -   Total optimization steps per epoch 781
+10/22/2025 09:49:50 - INFO - __main__ -   Total optimization steps = 23430
+  0%|                                                                                                                                  | 0/23430 [00:00<?, ?it/s]10/22/2025 09:49:50 - INFO - __main__ - Epoch 1/30
+  3%|███▉                                                                                                                  | 781/23430 [02:26<1:10:37,  5.34it/s]10/22/2025 09:52:17 - INFO - __main__ - Epoch 1/30, Step 780/781, Loss 0.03439021483063698 (0.2367009952433035)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 68.25it/s]
+10/22/2025 09:52:18 - INFO - numexpr.utils - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.1<00:00, 71.48it/s]
+10/22/2025 09:52:18 - INFO - numexpr.utils - NumExpr defaulting to 16 threads.
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_0.pth
+10/22/2025 09:52:20 - INFO - __main__ - Epoch 2/30
+  7%|███████▊                                                                                                             | 1562/23430 [04:56<1:08:20,  5.33it/s]10/22/2025 09:54:46 - INFO - __main__ - Epoch 2/30, Step 780/781, Loss 0.03755386173725128 (0.03005830564854545)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 70.76it/s]
+10/22/2025 09:54:48 - INFO - __main__ - Epoch 3/30███████████████████████████████████████████████████████████████████████▊      | 95/100 [00:01<00:00, 70.97it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_1.pth
+ 10%|███████████▋                                                                                                         | 2343/23430 [07:25<1:06:00,  5.32it/s]10/22/2025 09:57:15 - INFO - __main__ - Epoch 3/30, Step 780/781, Loss 0.02866288647055626 (0.02751868483866833)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 69.21it/s]
+10/22/2025 09:57:17 - INFO - __main__ - Epoch 4/30███████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 69.29it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_2.pth
+ 13%|███████████████▌                                                                                                     | 3124/23430 [09:53<1:03:23,  5.34it/s]10/22/2025 09:59:44 - INFO - __main__ - Epoch 4/30, Step 780/781, Loss 0.01848985068500042 (0.026204490700257266)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 69.69it/s]
+10/22/2025 09:59:46 - INFO - __main__ - Epoch 5/30██████████████████████████████████████████████████████████████████████████▎   | 97/100 [00:01<00:00, 69.43it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_3.pth
+ 17%|███████████████████▌                                                                                                 | 3905/23430 [12:22<1:01:16,  5.31it/s]10/22/2025 10:02:13 - INFO - __main__ - Epoch 5/30, Step 780/781, Loss 0.027729731053113937 (0.02507158043995862)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 68.06it/s]
+10/22/2025 10:02:15 - INFO - __main__ - Epoch 6/30███████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 68.35it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_4.pth
+ 20%|███████████████████████▊                                                                                               | 4686/23430 [14:51<58:50,  5.31it/s]10/22/2025 10:04:42 - INFO - __main__ - Epoch 6/30, Step 780/781, Loss 0.02615881711244583 (0.024680320764373077)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 64.66it/s]
+10/22/2025 10:04:44 - INFO - __main__ - Epoch 7/30███████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 64.84it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_5.pth
+ 23%|███████████████████████████▊                                                                                           | 5467/23430 [17:21<56:26,  5.30it/s]10/22/2025 10:07:11 - INFO - __main__ - Epoch 7/30, Step 780/781, Loss 0.025682633742690086 (0.02436123411296348)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 65.52it/s]
+10/22/2025 10:07:13 - INFO - __main__ - Epoch 8/30███████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 65.62it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_6.pth
+ 27%|███████████████████████████████▋                                                                                       | 6248/23430 [19:50<53:53,  5.31it/s]10/22/2025 10:09:41 - INFO - __main__ - Epoch 8/30, Step 780/781, Loss 0.01495215855538845 (0.023887048841533986)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 65.69it/s]
+10/22/2025 10:09:43 - INFO - __main__ - Epoch 9/30███████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 65.50it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_7.pth
+ 30%|███████████████████████████████████▋                                                                                   | 7029/23430 [22:20<51:26,  5.31it/s]10/22/2025 10:12:10 - INFO - __main__ - Epoch 9/30, Step 780/781, Loss 0.019413668662309647 (0.02361045965970173)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 64.57it/s]
+10/22/2025 10:12:12 - INFO - __main__ - Epoch 10/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 64.70it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_8.pth
+ 33%|███████████████████████████████████████▋                                                                               | 7810/23430 [24:49<48:59,  5.31it/s]10/22/2025 10:14:39 - INFO - __main__ - Epoch 10/30, Step 780/781, Loss 0.016209496185183525 (0.023378663817981066)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 65.99it/s]
+10/22/2025 10:14:42 - INFO - __main__ - Epoch 11/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 66.13it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_9.pth
+ 37%|███████████████████████████████████████████▋                                                                           | 8591/23430 [27:19<46:31,  5.31it/s]10/22/2025 10:17:09 - INFO - __main__ - Epoch 11/30, Step 780/781, Loss 0.0430767796933651 (0.023520163321812733)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 64.57it/s]
+10/22/2025 10:17:11 - INFO - __main__ - Epoch 12/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 65.35it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_10.pth
+ 40%|███████████████████████████████████████████████▌                                                                       | 9372/23430 [29:48<44:08,  5.31it/s]10/22/2025 10:19:38 - INFO - __main__ - Epoch 12/30, Step 780/781, Loss 0.023135770112276077 (0.023043696920622365)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 63.76it/s]
+10/22/2025 10:19:40 - INFO - __main__ - Epoch 13/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 63.82it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_11.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_0.pth
+ 43%|███████████████████████████████████████████████████▏                                                                  | 10153/23430 [32:18<41:38,  5.31it/s]10/22/2025 10:22:08 - INFO - __main__ - Epoch 13/30, Step 780/781, Loss 0.012909538112580776 (0.022486530255082703)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 64.64it/s]
+10/22/2025 10:22:10 - INFO - __main__ - Epoch 14/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 64.94it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_12.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_1.pth
+ 47%|███████████████████████████████████████████████████████                                                               | 10934/23430 [34:47<39:12,  5.31it/s]10/22/2025 10:24:37 - INFO - __main__ - Epoch 14/30, Step 780/781, Loss 0.026389367878437042 (0.022799683062815216)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 63.07it/s]
+10/22/2025 10:24:40 - INFO - __main__ - Epoch 15/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 63.14it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_13.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_2.pth
+ 50%|███████████████████████████████████████████████████████████                                                           | 11715/23430 [37:17<36:46,  5.31it/s]10/22/2025 10:27:07 - INFO - __main__ - Epoch 15/30, Step 780/781, Loss 0.02908739075064659 (0.02255730148853207)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 64.67it/s]
+10/22/2025 10:27:09 - INFO - __main__ - Epoch 16/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 65.50it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_14.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_3.pth
+ 53%|██████████████████████████████████████████████████████████████▉                                                       | 12496/23430 [39:46<34:16,  5.32it/s]10/22/2025 10:29:36 - INFO - __main__ - Epoch 16/30, Step 780/781, Loss 0.020218726247549057 (0.0225714366273685)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 67.84it/s]
+10/22/2025 10:29:39 - INFO - __main__ - Epoch 17/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 67.77it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_15.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_4.pth
+ 57%|██████████████████████████████████████████████████████████████████▊                                                   | 13277/23430 [42:16<31:53,  5.31it/s]10/22/2025 10:32:06 - INFO - __main__ - Epoch 17/30, Step 780/781, Loss 0.03005867265164852 (0.02248165448090102)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 63.32it/s]
+10/22/2025 10:32:08 - INFO - __main__ - Epoch 18/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 63.46it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_16.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_5.pth
+ 60%|██████████████████████████████████████████████████████████████████████▊                                               | 14058/23430 [44:45<29:26,  5.31it/s]10/22/2025 10:34:36 - INFO - __main__ - Epoch 18/30, Step 780/781, Loss 0.02523723989725113 (0.022195439013591688)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:01<00:00, 65.65it/s]
+10/22/2025 10:34:38 - INFO - __main__ - Epoch 19/30██████████████████████████████████████████████████████████████████████████▌  | 98/100 [00:01<00:00, 65.82it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_17.pth
+Removed old checkpoint: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-2-ddpm/checkpoints/checkpoint_epoch_6.pth
+ 61%|███████████████████████████████████████████████████████████████████████▋                                              | 14230/23430 [54:05<28:39,  5.35it/s]

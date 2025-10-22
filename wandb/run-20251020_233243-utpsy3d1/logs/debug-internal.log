@@ -1,0 +1,7 @@
+{"time":"2025-10-20T23:32:44.042120332-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251020_233243-utpsy3d1/logs/debug-core.log"}
+{"time":"2025-10-20T23:32:44.596429822-04:00","level":"INFO","msg":"stream: created new stream","id":"utpsy3d1"}
+{"time":"2025-10-20T23:32:44.596491775-04:00","level":"INFO","msg":"stream: started","id":"utpsy3d1"}
+{"time":"2025-10-20T23:32:44.596504482-04:00","level":"INFO","msg":"sender: started","stream_id":"utpsy3d1"}
+{"time":"2025-10-20T23:32:44.596504375-04:00","level":"INFO","msg":"handler: started","stream_id":"utpsy3d1"}
+{"time":"2025-10-20T23:32:44.596524608-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"utpsy3d1"}
+{"time":"2025-10-20T23:32:44.864547195-04:00","level":"INFO","msg":"Starting system monitor"}
