@@ -1,0 +1,53 @@
+10/22/2025 21:59:31 - INFO - __main__ - ***** Training arguments *****
+10/22/2025 21:59:31 - INFO - __main__ - Namespace(config='configs/ddpm.yaml', data_dir='/ocean/projects/cis250019p/jye9/11685-project/data', is_cifar_10=True, image_size=32, batch_size=64, num_workers=4, num_classes=10, run_name='exp-11-ddpm', output_dir='/ocean/projects/cis250019p/jye9/11685-project/experiments', num_epochs=300, learning_rate=0.0005, weight_decay=0.0001, grad_clip=1.0, seed=42, mixed_precision='none', use_val=True, num_train_timesteps=1000, num_inference_steps=250, beta_start=0.0001, beta_end=0.02, beta_schedule='cosine', variance_type='fixed_small', prediction_type='epsilon', clip_sample=True, clip_sample_range=1.0, optimizer_type='AdamW', scheduler_type='ConsineAnnealingLR', unet_in_size=32, unet_in_ch=3, unet_ch=128, unet_ch_mult=[1, 2, 2, 4], unet_attn=[1, 2, 3], unet_num_res_blocks=2, unet_dropout=0.1, latent_ddpm=False, pretrained_vae='/ocean/projects/cis250019p/jye9/11685-project/pretrained/model.ckpt', use_cfg=False, cfg_guidance_scale=2.0, use_ddim=False, ckpt=None, device='cuda', rank=0, world_size=1, predictor_type='epsilon', distributed=False, local_rank=0, total_batch_size=64, max_train_steps=234300)
+10/22/2025 21:59:31 - INFO - __main__ - ***** Running training *****
+10/22/2025 21:59:31 - INFO - __main__ -   Num examples = 50000
+10/22/2025 21:59:31 - INFO - __main__ -   Num Epochs = 300
+10/22/2025 21:59:31 - INFO - __main__ -   Instantaneous batch size per device = 64
+10/22/2025 21:59:31 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 64
+10/22/2025 21:59:31 - INFO - __main__ -   Total optimization steps per epoch 781
+10/22/2025 21:59:31 - INFO - __main__ -   Total optimization steps = 234300
+  0%|                                                                                                                                 | 0/234300 [00:00<?, ?it/s]10/22/2025 21:59:31 - INFO - __main__ - Epoch 1/300
+  0%|                                                                                                                  | 1/234300 [02:37<10239:28:10, 157.33s/it]10/22/2025 22:02:08 - INFO - __main__ - Epoch 1/300, Step 780/781, Loss 0.07744567096233368 (0.1375422805366458)
+10/22/2025 22:02:14 - INFO - __main__ - Epoch 1/300 Validation Loss: 0.066455
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌| 249/250 [00:03<00:00, 63.38it/s]
+Traceback (most recent call last):███████████████████████████████████████████████████████████████████████████████████████████  | 246/250 [00:03<00:00, 69.34it/s]
+  File "/jet/home/jye9/Project/11685_project/train.py", line 596, in <module>
+    main()
+  File "/jet/home/jye9/Project/11685_project/train.py", line 573, in main
+    gen_images = pipeline(batch_size=4,
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/jet/home/jye9/Project/11685_project/pipelines/ddpm.py", line 109, in __call__
+    model_output = self.unet(model_input, t, c)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/jet/home/jye9/Project/11685_project/models/unet.py", line 84, in forward
+    h = layer(h, temb, c)
+        ^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/jet/home/jye9/Project/11685_project/models/unet_modules.py", line 212, in forward
+    h = self.attn(h)
+        ^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ocean/projects/cis250019p/jye9/conda/envs/11685/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/jet/home/jye9/Project/11685_project/models/unet_modules.py", line 100, in forward
+    w = torch.bmm(q, k) * (int(C) ** (-0.5))
+        ^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: CUBLAS_STATUS_EXECUTION_FAILED when calling `cublasSgemmStridedBatched( handle, opa, opb, m, n, k, &alpha, a, lda, stridea, b, ldb, strideb, &beta, c, ldc, stridec, num_batches)`

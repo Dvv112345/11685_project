@@ -1,0 +1,15 @@
+{"time":"2025-10-22T22:04:20.501267182-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_220420-heuiglvq/logs/debug-core.log"}
+{"time":"2025-10-22T22:04:20.70485139-04:00","level":"INFO","msg":"stream: created new stream","id":"heuiglvq"}
+{"time":"2025-10-22T22:04:20.704904843-04:00","level":"INFO","msg":"stream: started","id":"heuiglvq"}
+{"time":"2025-10-22T22:04:20.704921211-04:00","level":"INFO","msg":"handler: started","stream_id":"heuiglvq"}
+{"time":"2025-10-22T22:04:20.704961629-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"heuiglvq"}
+{"time":"2025-10-22T22:04:20.704928004-04:00","level":"INFO","msg":"sender: started","stream_id":"heuiglvq"}
+{"time":"2025-10-22T22:04:20.839547747-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-10-22T22:07:22.133325983-04:00","level":"INFO","msg":"stream: closing","id":"heuiglvq"}
+{"time":"2025-10-22T22:07:22.133364347-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-10-22T22:07:22.13344332-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-10-22T22:07:22.37152043-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-10-22T22:07:22.561694678-04:00","level":"INFO","msg":"handler: closed","stream_id":"heuiglvq"}
+{"time":"2025-10-22T22:07:22.561735535-04:00","level":"INFO","msg":"sender: closed","stream_id":"heuiglvq"}
+{"time":"2025-10-22T22:07:22.561732661-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"heuiglvq"}
+{"time":"2025-10-22T22:07:22.561975839-04:00","level":"INFO","msg":"stream: closed","id":"heuiglvq"}

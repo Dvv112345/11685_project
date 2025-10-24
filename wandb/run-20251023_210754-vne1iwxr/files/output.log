@@ -1,0 +1,23 @@
+10/23/2025 21:07:55 - INFO - __main__ - ***** Training arguments *****
+10/23/2025 21:07:55 - INFO - __main__ - Namespace(config='configs/ddpm.yaml', data_dir='/ocean/projects/cis250019p/jye9/11685-project/data', is_cifar_10=True, image_size=32, batch_size=64, num_workers=4, num_classes=10, run_name='exp-11-ddpm', output_dir='/ocean/projects/cis250019p/jye9/11685-project/experiments', num_epochs=300, learning_rate=0.0001, weight_decay=0.02, grad_clip=1.0, seed=42, mixed_precision='none', use_val=True, num_train_timesteps=500, num_inference_steps=500, beta_start=0.0001, beta_end=0.01, beta_schedule='linear', variance_type='fixed_small', prediction_type='epsilon', clip_sample=True, clip_sample_range=1.0, optimizer_type='AdamW', scheduler_type='ConsineAnnealingLR', unet_in_size=32, unet_in_ch=3, unet_ch=64, unet_ch_mult=[1, 2, 2, 4], unet_attn=[2, 3], unet_num_res_blocks=2, unet_dropout=0.2, latent_ddpm=False, pretrained_vae='/ocean/projects/cis250019p/jye9/11685-project/pretrained/model.ckpt', use_cfg=False, cfg_guidance_scale=2, use_ddim=False, ckpt=None, load_model_pth='/ocean/projects/cis250019p/jye9/11685-project/experiments/exp-1-ddpm/checkpoints/checkpoint_best.pth', resume=False, previous_run_id='leva0ih3', device='cuda', rank=0, world_size=1, predictor_type='epsilon', distributed=False, local_rank=0, total_batch_size=64, max_train_steps=234300)
+10/23/2025 21:07:55 - INFO - __main__ - ***** Running training *****
+10/23/2025 21:07:55 - INFO - __main__ -   Num examples = 50000
+10/23/2025 21:07:55 - INFO - __main__ -   Num Epochs = 300
+10/23/2025 21:07:55 - INFO - __main__ -   Instantaneous batch size per device = 64
+10/23/2025 21:07:55 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 64
+10/23/2025 21:07:55 - INFO - __main__ -   Total optimization steps per epoch 781
+10/23/2025 21:07:55 - INFO - __main__ -   Total optimization steps = 234300
+  0%|                                                                                                                                              | 0/234300 [00:00<?, ?it/s]10/23/2025 21:07:55 - INFO - __main__ - Epoch 1/300
+  0%|▍                                                                                                                                 | 781/234300 [01:06<5:25:09, 11.97it/s]10/23/2025 21:09:02 - INFO - __main__ - Epoch 1/300, Step 780/781, Loss 0.04972022771835327 (0.25678459382240354)
+10/23/2025 21:09:04 - INFO - __main__ - Epoch 1/300 Validation Loss: 0.073735
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 499/499 [00:07<00:00, 67.58it/s]
+  0%|▍                                                                                                                                 | 781/234300 [01:20<5:25:09, 11.97it/s]10/23/2025 21:09:20 - INFO - numexpr.utils - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+10/23/2025 21:09:20 - INFO - numexpr.utils - NumExpr defaulting to 16 threads.
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-11-ddpm/checkpoints/checkpoint_best.pth
+10/23/2025 21:09:27 - INFO - __main__ - Epoch 2/300
+  1%|▊                                                                                                                                | 1562/234300 [02:36<5:23:52, 11.98it/s]10/23/2025 21:10:32 - INFO - __main__ - Epoch 2/300, Step 780/781, Loss 0.06841203570365906 (0.07415219201263942)
+10/23/2025 21:10:34 - INFO - __main__ - Epoch 2/300 Validation Loss: 0.069706
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 499/499 [00:06<00:00, 78.97it/s]
+10/23/2025 21:10:41 - INFO - __main__ - Epoch 3/300████████████████████████████████████████████████████████████████████████████████████████▏| 496/499 [00:06<00:00, 78.83it/s]
+Checkpoint saved at /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-11-ddpm/checkpoints/checkpoint_best.pth
+  1%|▉                                                                                                                                | 1766/234300 [03:02<5:25:57, 11.89it/s]

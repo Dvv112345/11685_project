@@ -1,0 +1,7 @@
+{"time":"2025-10-23T21:05:28.877506941-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251023_210528-etpoqqsc/logs/debug-core.log"}
+{"time":"2025-10-23T21:05:29.143466497-04:00","level":"INFO","msg":"stream: created new stream","id":"etpoqqsc"}
+{"time":"2025-10-23T21:05:29.143553629-04:00","level":"INFO","msg":"stream: started","id":"etpoqqsc"}
+{"time":"2025-10-23T21:05:29.143605096-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"etpoqqsc"}
+{"time":"2025-10-23T21:05:29.143608995-04:00","level":"INFO","msg":"handler: started","stream_id":"etpoqqsc"}
+{"time":"2025-10-23T21:05:29.143621311-04:00","level":"INFO","msg":"sender: started","stream_id":"etpoqqsc"}
+{"time":"2025-10-23T21:05:29.35691761-04:00","level":"INFO","msg":"Starting system monitor"}

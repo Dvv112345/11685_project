@@ -1,0 +1,94 @@
+{
+  "os": "Linux-4.18.0-553.22.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "python": "CPython 3.12.9",
+  "startedAt": "2025-10-23T03:10:14.796517Z",
+  "program": "/jet/home/jye9/Project/11685_project/train.py",
+  "codePath": "train.py",
+  "git": {
+    "remote": "git@github.com:Dvv112345/11685_project.git",
+    "commit": "c0a0f6a1ef958a08296ccfc2bb053f6333b5b86f"
+  },
+  "email": "ye3@andrew.cmu.edu",
+  "root": "/jet/home/jye9/Project/11685_project",
+  "host": "v008.ib.bridges2.psc.edu",
+  "executable": "/ocean/projects/cis250019p/jye9/conda/envs/11685/bin/python3",
+  "codePathLocal": "train.py",
+  "cpu_count": 40,
+  "cpu_count_logical": 40,
+  "gpu": "Tesla V100-SXM2-32GB",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "315926315008",
+      "used": "25931010048"
+    }
+  },
+  "memory": {
+    "total": "540673683456"
+  },
+  "cpu": {
+    "count": 40,
+    "countLogical": 40
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Tesla V100-SXM2-32GB",
+      "memoryTotal": "34359738368",
+      "cudaCores": 5120,
+      "architecture": "Volta",
+      "uuid": "GPU-88e0c6f5-96f7-98a0-5d59-fcbf6fec38ac"
+    }
+  ],
+  "slurm": {
+    "cluster_name": "bridges2",
+    "conf": "/var/spool/slurm/d/conf-cache/slurm.conf",
+    "cpus_on_node": "5",
+    "export_env": "ALL",
+    "gpus_on_node": "1",
+    "gtids": "0",
+    "job_account": "cis250019p",
+    "job_cpus_per_node": "5",
+    "job_cpus_per_node_pack_group_0": "5",
+    "job_gid": "26783",
+    "job_gpus": "6",
+    "job_id": "35570503",
+    "job_name": "Interact",
+    "job_nodelist": "v008",
+    "job_num_nodes": "1",
+    "job_partition": "GPU-shared",
+    "job_qos": "gpuinteract",
+    "job_uid": "99284",
+    "job_user": "jye9",
+    "jobid": "35570503",
+    "launch_node_ipaddr": "10.8.11.29",
+    "localid": "0",
+    "mpi_type": "none",
+    "nnodes": "1",
+    "node_aliases": "(null)",
+    "nodeid": "0",
+    "nodelist": "v008",
+    "prio_process": "0",
+    "procid": "0",
+    "pty_port": "42479",
+    "pty_win_col": "161",
+    "pty_win_row": "13",
+    "script_context": "prolog_task",
+    "srun_comm_host": "10.8.11.29",
+    "srun_comm_port": "43677",
+    "step_id": "4294967290",
+    "step_launcher_port": "43677",
+    "step_nodelist": "v008",
+    "step_num_nodes": "1",
+    "step_num_tasks": "1",
+    "step_tasks_per_node": "1",
+    "stepid": "4294967290",
+    "submit_dir": "/jet/home/jye9",
+    "submit_host": "br011.ib.bridges2.psc.edu",
+    "task_pid": "6267",
+    "tasks_per_node": "5",
+    "topology_addr": "v008",
+    "topology_addr_pattern": "node",
+    "working_cluster": "bridges2:br003:6810:9728:109"
+  },
+  "cudaVersion": "12.6"
+}

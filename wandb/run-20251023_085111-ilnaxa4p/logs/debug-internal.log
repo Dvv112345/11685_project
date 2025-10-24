@@ -1,0 +1,8 @@
+{"time":"2025-10-23T08:51:14.898029051-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251023_085111-ilnaxa4p/logs/debug-core.log"}
+{"time":"2025-10-23T08:51:15.328398969-04:00","level":"INFO","msg":"stream: created new stream","id":"ilnaxa4p"}
+{"time":"2025-10-23T08:51:15.328459166-04:00","level":"INFO","msg":"stream: started","id":"ilnaxa4p"}
+{"time":"2025-10-23T08:51:15.328473254-04:00","level":"INFO","msg":"handler: started","stream_id":"ilnaxa4p"}
+{"time":"2025-10-23T08:51:15.328485906-04:00","level":"INFO","msg":"sender: started","stream_id":"ilnaxa4p"}
+{"time":"2025-10-23T08:51:15.328492658-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"ilnaxa4p"}
+{"time":"2025-10-23T08:51:15.573684421-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-10-23T09:03:16.160856452-04:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/ye3-carnegie-mellon-university/ddpm/ilnaxa4p/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}

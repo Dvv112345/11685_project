@@ -1,0 +1,15 @@
+{"time":"2025-10-23T15:40:41.315559251-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251023_154041-leva0ih3/logs/debug-core.log"}
+{"time":"2025-10-23T15:40:41.538944595-04:00","level":"INFO","msg":"stream: created new stream","id":"leva0ih3"}
+{"time":"2025-10-23T15:40:41.53899618-04:00","level":"INFO","msg":"stream: started","id":"leva0ih3"}
+{"time":"2025-10-23T15:40:41.53900421-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"leva0ih3"}
+{"time":"2025-10-23T15:40:41.539013163-04:00","level":"INFO","msg":"sender: started","stream_id":"leva0ih3"}
+{"time":"2025-10-23T15:40:41.539021773-04:00","level":"INFO","msg":"handler: started","stream_id":"leva0ih3"}
+{"time":"2025-10-23T15:40:41.721468719-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-10-23T15:40:41.97347899-04:00","level":"INFO","msg":"stream: closing","id":"leva0ih3"}
+{"time":"2025-10-23T15:40:41.973498733-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-10-23T15:40:41.973541591-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-10-23T15:40:42.420813553-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-10-23T15:40:42.512889356-04:00","level":"INFO","msg":"handler: closed","stream_id":"leva0ih3"}
+{"time":"2025-10-23T15:40:42.512926494-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"leva0ih3"}
+{"time":"2025-10-23T15:40:42.512954054-04:00","level":"INFO","msg":"sender: closed","stream_id":"leva0ih3"}
+{"time":"2025-10-23T15:40:42.513311644-04:00","level":"INFO","msg":"stream: closed","id":"leva0ih3"}

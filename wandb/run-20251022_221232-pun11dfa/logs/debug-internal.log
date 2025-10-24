@@ -1,0 +1,7 @@
+{"time":"2025-10-22T22:12:32.798839196-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_221232-pun11dfa/logs/debug-core.log"}
+{"time":"2025-10-22T22:12:32.980468449-04:00","level":"INFO","msg":"stream: created new stream","id":"pun11dfa"}
+{"time":"2025-10-22T22:12:32.980516104-04:00","level":"INFO","msg":"stream: started","id":"pun11dfa"}
+{"time":"2025-10-22T22:12:32.980535933-04:00","level":"INFO","msg":"handler: started","stream_id":"pun11dfa"}
+{"time":"2025-10-22T22:12:32.980539442-04:00","level":"INFO","msg":"sender: started","stream_id":"pun11dfa"}
+{"time":"2025-10-22T22:12:32.980567557-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"pun11dfa"}
+{"time":"2025-10-22T22:12:33.151998531-04:00","level":"INFO","msg":"Starting system monitor"}

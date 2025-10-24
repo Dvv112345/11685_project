@@ -1,0 +1,7 @@
+{"time":"2025-10-22T23:10:14.798904167-04:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"/jet/home/jye9/Project/11685_project/wandb/run-20251022_231014-kw682l9z/logs/debug-core.log"}
+{"time":"2025-10-22T23:10:15.115199079-04:00","level":"INFO","msg":"stream: created new stream","id":"kw682l9z"}
+{"time":"2025-10-22T23:10:15.115240917-04:00","level":"INFO","msg":"stream: started","id":"kw682l9z"}
+{"time":"2025-10-22T23:10:15.115262777-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"kw682l9z"}
+{"time":"2025-10-22T23:10:15.11526983-04:00","level":"INFO","msg":"sender: started","stream_id":"kw682l9z"}
+{"time":"2025-10-22T23:10:15.115277903-04:00","level":"INFO","msg":"handler: started","stream_id":"kw682l9z"}
+{"time":"2025-10-22T23:10:15.280734312-04:00","level":"INFO","msg":"Starting system monitor"}

@@ -1,0 +1,1 @@
+{"_step":2,"val_loss":0.06558973394334316,"gen_images":{"_type":"image-file","sha256":"02862db23eb9c188837fcf1aef3c5ff96f3676b7cfa9c952b64b8fcc3af5e120","size":9071,"path":"media/images/gen_images_2_02862db23eb9c188837f.png","format":"png","width":128,"height":32},"_wandb":{"runtime":181},"loss":0.13293237608789482,"_timestamp":1.761185241544629e+09,"_runtime":181.046471605}
