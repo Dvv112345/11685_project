@@ -1,0 +1,53 @@
+# ============================================
+# DDPM Training Configuration for CIFAR-10
+# ============================================
+
+run_name: ddpm_cifar10_fixed
+seed: 42
+
+# Data Configuration
+data_dir: /ocean/projects/cis250019p/jye9/11685-project/data
+image_size: 32
+batch_size: 128  # CHANGED: 64→128 (better training stability, adjust if OOM)
+num_workers: 4
+num_classes: 10
+is_cifar_10: True
+use_val: True
+
+# Training Configuration
+num_epochs: 300 
+learning_rate: 0.0002  
+weight_decay: 0.0 
+
+# Scheduler Configuration - CRITICAL CHANGES
+num_train_timesteps: 1000  
+num_inference_steps: 1000  
+beta_start: 0.0001  
+beta_end: 0.02  
+beta_schedule: cosine  
+variance_type: fixed_small  
+predictor_type: epsilon  
+
+# U-Net Architecture
+unet_in_size: 32 
+unet_in_ch: 3 
+unet_ch: 128  
+unet_num_res_blocks: 2 
+unet_ch_mult: [1, 2, 2, 4]  
+unet_attn: [1] 
+unet_dropout: 0.1  
+
+# Advanced Features
+use_ddim: False  
+use_cfg: False  
+latent_ddpm: False 
+cfg_guidance_scale: 2  
+
+# Output Configuration
+output_dir: /ocean/projects/cis250019p/jye9/11685-project/experiments
+pretrained_vae: /ocean/projects/cis250019p/jye9/11685-project/pretrained/model.ckpt
+
+# Resuming Training
+resume: False  # Set to True when resuming
+load_model_pth: /ocean/projects/cis250019p/jye9/11685-project/experiments/exp-1-ddpm/checkpoints/checkpoint_best.pth
+previous_run_id: leva0ih3
