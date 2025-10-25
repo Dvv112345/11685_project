@@ -34,7 +34,7 @@ class VAE(nn.Module):
         
         # sample from Gaussian using re-parameterization trick
         posterior = DiagonalGaussianDistribution(moments)
-        # posterior = posterior.sample()
+        posterior = posterior.sample()
         return posterior
 
     @torch.no_grad()
