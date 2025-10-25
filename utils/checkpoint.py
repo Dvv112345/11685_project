@@ -96,3 +96,35 @@ def save_best_checkpoint(unet, scheduler, vae=None, class_embedder=None, optimiz
     torch.save(checkpoint, checkpoint_path)
     print(f"Checkpoint saved at {checkpoint_path}")
     
+
+
+def save_last_checkpoint(unet, scheduler, vae=None, class_embedder=None, optimizer=None, epoch=None, save_dir='checkpoints'):
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+
+    # Define checkpoint file name
+    checkpoint_path = os.path.join(save_dir, f'checkpoint_last.pth')
+
+    checkpoint = {
+        'unet_state_dict': unet.state_dict(),
+        'scheduler_state_dict': scheduler.state_dict(),
+    }
+    
+    if vae is not None:
+        checkpoint['vae_state_dict'] = vae.state_dict()
+    
+    if class_embedder is not None:
+        checkpoint['class_embedder_state_dict'] = class_embedder.state_dict()
+    
+    if optimizer is not None:
+        checkpoint['optimizer_state_dict'] = optimizer.state_dict()
+    
+    if epoch is not None:
+        checkpoint['epoch'] = epoch
+    
+    # Save checkpoint
+    torch.save(checkpoint, checkpoint_path)
+    print(f"Checkpoint saved at {checkpoint_path}")
+    
+    # Manage checkpoint history
+    manage_checkpoints(save_dir, keep_last_n=10)

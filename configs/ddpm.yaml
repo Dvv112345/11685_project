@@ -2,11 +2,11 @@
 # DDPM Training Configuration for CIFAR-10
 # ============================================
 
-run_name: ddpm_cifar10_fixed
+run_name: ddpm
 seed: 42
 
 # Data Configuration
-data_dir: /ocean/projects/cis250019p/jye9/11685-project/data
+data_dir: ../data
 image_size: 32
 batch_size: 128  # CHANGED: 64→128 (better training stability, adjust if OOM)
 num_workers: 4

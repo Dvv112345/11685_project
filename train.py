@@ -17,7 +17,7 @@ from torchvision.utils  import make_grid
 from models import UNet, VAE, ClassEmbedder
 from schedulers import DDPMScheduler, DDIMScheduler
 from pipelines import DDPMPipeline
-from utils import seed_everything, init_distributed_device, is_primary, AverageMeter, str2bool, save_checkpoint, save_best_checkpoint, load_checkpoint, visualize_batch
+from utils import seed_everything, init_distributed_device, is_primary, AverageMeter, str2bool, save_checkpoint, save_best_checkpoint, load_checkpoint, visualize_batch, save_last_checkpoint
 
 logger = get_logger(__name__)
 
@@ -514,7 +514,7 @@ def main():
         # logger: only update when finish one epoch
         logger.info(f"Epoch {epoch+1}/{args.num_epochs}, Step {step}/{num_update_steps_per_epoch}, Loss {loss.item()} ({loss_m.avg})")
         wandb_logger.log({'loss': loss_m.avg})
-
+    
         # validation
         # send unet to evaluation mode
         unet.eval()        
@@ -612,7 +612,8 @@ def main():
             best_val_m = val_m.avg
             if is_primary(args):
                 save_best_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
-
+        
+        save_last_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
 
 if __name__ == '__main__':
     main()
