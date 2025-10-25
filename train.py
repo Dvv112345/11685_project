@@ -273,8 +273,6 @@ def main():
         # NOTE: do not change this
         vae.init_from_ckpt(args.pretrained_vae)
         vae.eval()
-        train_datast = vae.encode(train_dataset)
-        val_dataset = vae.encode(val_dataset)
 
     # Note: this is for cfg
     class_embedder = None
