@@ -390,7 +390,7 @@ def main():
         if args.resume:
             wandb_logger = wandb.init(
                 project='ddpm',
-                name='exp-4-ddpm',
+                name=args.run_name,
                 id=args.previous_run_id,
                 resume='must'
             )
@@ -571,6 +571,7 @@ def main():
             logger.info(f"Epoch {epoch+1}/{args.num_epochs} Validation Loss: {val_m.avg:.6f}")
             if is_primary(args):
                 wandb_logger.log({'val_loss': val_m.avg})
+                wandb_logger.log({'lr': optimizer.param_groups[0]['lr']})
 
             # step ReduceLROnPlateau with val loss
             # if args.scheduler_type == "Plateau" and scheduler is not None:
