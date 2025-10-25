@@ -513,7 +513,7 @@ def main():
             
         # logger: only update when finish one epoch
         logger.info(f"Epoch {epoch+1}/{args.num_epochs}, Step {step}/{num_update_steps_per_epoch}, Loss {loss.item()} ({loss_m.avg})")
-        wandb_logger.log({'loss': loss_m.avg})
+        metrics = {'loss': loss_m.avg}
     
         # validation
         # send unet to evaluation mode
@@ -570,9 +570,8 @@ def main():
             # log validation loss
             logger.info(f"Epoch {epoch+1}/{args.num_epochs} Validation Loss: {val_m.avg:.6f}")
             if is_primary(args):
-                wandb_logger.log({'val_loss': val_m.avg})
-                wandb_logger.log({'lr': optimizer.param_groups[0]['lr']})
-
+                metrics.update({'val_loss': val_m.avg})
+                metrics.update({'lr': optimizer.param_groups[0]['lr']})
             # step ReduceLROnPlateau with val loss
             # if args.scheduler_type == "Plateau" and scheduler is not None:
             #     scheduler.step(val_m.avg)
@@ -606,7 +605,8 @@ def main():
         
             # Send to wandb
             if is_primary(args):
-                wandb_logger.log({'gen_images': wandb.Image(grid_image)})
+                metrics.update({'gen_images': wandb.Image(grid_image)})
+        wandb_logger.log(metrics)
                 
         # save checkpoint
         if val_m.avg < best_val_m:
