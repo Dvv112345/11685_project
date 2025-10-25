@@ -448,17 +448,17 @@ def main():
             # NOTE: this is for latent DDPM 
             if vae is not None:
                 # use vae to encode images as latents
-                # enc = None
-                images = images.sample()
-                # if isinstance(enc, torch.Tensor):
-                #     images = enc
-                # elif isinstance(enc, (list, tuple)) and len(enc) > 0 and isinstance(enc[0], torch.Tensor):
-                #     images = enc[0]
-                # elif hasattr(enc, 'latent') and isinstance(enc.latent, torch.Tensor):
-                #     images = enc.latent
-                # else:
-                #     print("Use Images.")
-                #     images = images
+                enc = None
+                enc = vae.encode(images)
+                if isinstance(enc, torch.Tensor):
+                    images = enc
+                elif isinstance(enc, (list, tuple)) and len(enc) > 0 and isinstance(enc[0], torch.Tensor):
+                    images = enc[0]
+                elif hasattr(enc, 'latent') and isinstance(enc.latent, torch.Tensor):
+                    images = enc.latent
+                else:
+                    print("Use Images.")
+                    images = images
                 # NOTE: do not change  this line, this is to ensure the latent has unit std
                 images = images * 0.1845
             
