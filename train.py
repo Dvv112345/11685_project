@@ -33,7 +33,7 @@ def parse_args():
     parser.add_argument("--is_cifar_10", type = str2bool, default = 1, help = 'use cifar 10') #jinyi
     parser.add_argument("--image_size", type=int, default=128, help="image size")
     parser.add_argument("--batch_size", type=int, default=4, help="per gpu batch size")
-    parser.add_argument("--num_workers", type=int, default=8, help="batch size")
+    parser.add_argument("--num_workers", type=int, default=8, help="num workers")
     parser.add_argument("--num_classes", type=int, default=100, help="number of classes in dataset")
 
 
@@ -59,7 +59,7 @@ def parse_args():
     parser.add_argument("--clip_sample", type=str2bool, default=True, help="whether to clip sample at each step of reverse process")
     parser.add_argument("--clip_sample_range", type=float, default=1.0, help="clip sample range")
     parser.add_argument("--optimizer_type", type=str, default='AdamW', help="Optimizer")
-    parser.add_argument("--scheduler_type", type=str, default='ConsineAnnealingLR', help="LR scheduler")
+    parser.add_argument("--scheduler_type", type=str, default='CosineAnnealingLR', help="LR scheduler")
     
     # unet
     parser.add_argument("--unet_in_size", type=int, default=128, help="unet input image size")
@@ -273,7 +273,9 @@ def main():
         # NOTE: do not change this
         vae.init_from_ckpt(args.pretrained_vae)
         vae.eval()
-        
+        train_datast = vae.encode(train_dataset)
+        val_dataset = vae.encode(val_dataset)
+
     # Note: this is for cfg
     class_embedder = None
     if args.use_cfg:
@@ -311,7 +313,7 @@ def main():
     # TODO: setup scheduler
     # Setup Scheduler based on args.scheduler_type
     SCHEDULER_MAP = {
-        'CosineAnnealing': CosineAnnealingLR,
+        'CosineAnnealingLR': CosineAnnealingLR,
         'Step': StepLR,
         'Plateau': ReduceLROnPlateau,
         'None': None,
@@ -364,7 +366,7 @@ def main():
         scheduler_wo_ddp = DDIMScheduler(args.num_train_timesteps, args.num_inference_steps, args.beta_start, args.beta_end, args.beta_schedule, args.variance_type, args.prediction_type, args.clip_sample, args.clip_sample_range)
     else:
         scheduler_wo_ddp = DDPMScheduler(args.num_train_timesteps, args.num_inference_steps, args.beta_start, args.beta_end, args.beta_schedule, args.variance_type, args.prediction_type, args.clip_sample, args.clip_sample_range)
-    
+    scheduler_wo_ddp.to(device)
     start_epoch = 0
     if args.resume:
         start_epoch = load_checkpoint(unet, scheduler = scheduler, vae=vae_wo_ddp, class_embedder=class_embedder_wo_ddp, optimizer=optimizer, epoch = start_epoch, checkpoint_path=args.load_model_pth)
@@ -448,17 +450,17 @@ def main():
             # NOTE: this is for latent DDPM 
             if vae is not None:
                 # use vae to encode images as latents
-                enc = None
-                enc = vae.encode(images)
-                if isinstance(enc, torch.Tensor):
-                    images = enc
-                elif isinstance(enc, (list, tuple)) and len(enc) > 0 and isinstance(enc[0], torch.Tensor):
-                    images = enc[0]
-                elif hasattr(enc, 'latent') and isinstance(enc.latent, torch.Tensor):
-                    images = enc.latent
-                else:
-                    print("Use Images.")
-                    images = images
+                # enc = None
+                images = images.sample()
+                # if isinstance(enc, torch.Tensor):
+                #     images = enc
+                # elif isinstance(enc, (list, tuple)) and len(enc) > 0 and isinstance(enc[0], torch.Tensor):
+                #     images = enc[0]
+                # elif hasattr(enc, 'latent') and isinstance(enc.latent, torch.Tensor):
+                #     images = enc.latent
+                # else:
+                #     print("Use Images.")
+                #     images = images
                 # NOTE: do not change  this line, this is to ensure the latent has unit std
                 images = images * 0.1845
             
