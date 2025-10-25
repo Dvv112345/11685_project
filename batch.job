@@ -1,0 +1,6 @@
+#!/bin/bash
+
+module load anaconda3
+conda activate /ocean/projects/cis250019p/jye9/conda/envs/11685
+
+python train.py --config configs/ddim.yaml
