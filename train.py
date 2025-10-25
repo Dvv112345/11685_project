@@ -594,7 +594,7 @@ def main():
             gen_images = pipeline(batch_size=4, 
                                     generator=generator, 
                                     num_inference_steps=args.num_inference_steps)
-        if epoch % 20 == 0:
+        if epoch % 10 == 0:
             # create a blank canvas for the grid
             grid_image = Image.new('RGB', (4 * args.image_size, 1 * args.image_size))
             # paste images into the grid
@@ -612,9 +612,9 @@ def main():
         if val_m.avg < best_val_m:
             best_val_m = val_m.avg
             if is_primary(args):
-                save_best_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
+                save_best_checkpoint(unet_wo_ddp, scheduler_wo_ddp, None, class_embedder, optimizer, epoch, save_dir=save_dir)
         
-        save_last_checkpoint(unet_wo_ddp, scheduler_wo_ddp, vae_wo_ddp, class_embedder, optimizer, epoch, save_dir=save_dir)
+        save_last_checkpoint(unet_wo_ddp, scheduler_wo_ddp, None, class_embedder, optimizer, epoch, save_dir=save_dir)
 
 if __name__ == '__main__':
     main()
