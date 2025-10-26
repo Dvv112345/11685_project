@@ -3,3 +3,4 @@ experiments/*
 .yaml
 __pycache__/*
 **/__pycache__/*
+log/*
