@@ -18,4 +18,4 @@ conda activate /ocean/projects/cis250019p/jye9/conda/envs/11685
 python train.py --config configs/${input}.yaml
 EOF
 
-sbatch -o "$log" -t 30:00:00 --gpus=v100-32:1 -p GPU-shared batch.job -A cis251142
+sbatch -o "$log" -t 30:00:00 --gpus=v100-32:1 -p GPU-shared -A cis251142 batch.job
