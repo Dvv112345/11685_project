@@ -475,6 +475,8 @@ def main():
             
             # TODO: sample noise 
             noise = torch.randn_like(images, device=device)   
+            print("Noise")
+            print(noise[1, :, :])
             
             # TODO: sample timestep t
             timesteps = torch.randint(0, args.num_train_timesteps, (batch_size,), device=device).long()
@@ -484,12 +486,15 @@ def main():
             
             # TODO: model prediction
             model_pred = unet(noisy_images, timesteps, class_emb)
+            print("Model pred")
+            print(model_pred[1, :, :])
             
             if args.prediction_type == 'epsilon':
                 target = noise 
             
             # TODO: calculate loss
             loss = F.mse_loss(model_pred, target)
+            print("Loss: ", loss)
             
             # record loss
             loss_m.update(loss.item())
