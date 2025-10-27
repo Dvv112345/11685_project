@@ -35,6 +35,7 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=4, help="per gpu batch size")
     parser.add_argument("--num_workers", type=int, default=8, help="num workers")
     parser.add_argument("--num_classes", type=int, default=100, help="number of classes in dataset")
+    parser.add_argument("--subset", type=float, default=1, help="Propotion of dataset to be used")
 
 
     # training
@@ -186,6 +187,9 @@ def main():
     else:   
         train_dataset = datasets.ImageFolder(root=args.data_dir, transform=transform)
     
+    if args.subset < 1:
+        train_dataset = torch.utils.data.Subset(train_dataset, torch.randperm(len(train_dataset))[:int(len(train_dataset)*args.subset)])
+
     # TODO: setup dataloader
     sampler = None 
     if args.distributed:
@@ -221,6 +225,9 @@ def main():
         else:
             # If have a separate val folder, replace this with ImageFolder
             val_dataset = datasets.ImageFolder(root=args.data_dir.replace("train", "val"), transform=transform)
+
+        if args.subset < 1:
+            val_dataset = torch.utils.data.Subset(val_dataset, torch.randperm(len(val_dataset))[:int(len(val_dataset)*args.subset)])
 
         val_sampler = None
         if args.distributed:
