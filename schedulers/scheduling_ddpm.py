@@ -139,7 +139,7 @@ class DDPMScheduler(nn.Module):
         alpha_prod_t = self.alphas_cumprod[t]
         alpha_prod_t_prev =  self.alphas_cumprod[prev_t]
         if t == 0:
-            alpha_prod_t_prev = torch.tensor(1)
+            alpha_prod_t_prev = torch.tensor(1).to(alpha_prod_t.device)
         current_beta_t = self.betas[t] 
     
         # TODO: For t > 0, compute predicted variance $\beta_t$ (see formula (6) and (7) from https://arxiv.org/pdf/2006.11239.pdf)
@@ -248,7 +248,7 @@ class DDPMScheduler(nn.Module):
         alpha_prod_t = self.alphas_cumprod[t] 
         alpha_prod_t_prev = self.alphas_cumprod[prev_t] 
         if t == 0:
-            alpha_prod_t_prev = torch.tensor(1)
+            alpha_prod_t_prev = torch.tensor(1).to(alpha_prod_t.device)
         beta_prod_t = 1-alpha_prod_t
         beta_prod_t_prev = 1-alpha_prod_t_prev
         current_alpha_t = self.alphas[t] 
