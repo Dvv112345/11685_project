@@ -9,7 +9,7 @@ fi
 input="$1"
 log="log/${input}.out"
 
-cat <<EOF > "sbatch.job"
+cat <<EOF > "batch.job"
 #!/bin/bash
 
 module load anaconda3
