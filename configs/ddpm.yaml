@@ -13,6 +13,7 @@ num_workers: 4
 num_classes: 10
 is_cifar_10: True
 use_val: True
+augment: False
 
 # Training Configuration
 num_epochs: 300 

@@ -36,6 +36,7 @@ def parse_args():
     parser.add_argument("--num_workers", type=int, default=8, help="num workers")
     parser.add_argument("--num_classes", type=int, default=100, help="number of classes in dataset")
     parser.add_argument("--subset", type=float, default=1, help="Propotion of dataset to be used")
+    parser.add_argument("--augment", type=bool, default=False, help="Whether to augment the training set")
 
 
     # training
@@ -136,46 +137,53 @@ def main():
     logger.info("Creating dataset")
     # TODO: use transform to normalize your images to [-1, 1]
     # TODO: you can also use horizontal flip
-    P_TRANSFORM = [0.1,0.1,0.1] # Crop, Rotation, Color
     transform = transforms.Compose([
-        # 1. Random Flip 
         transforms.RandomHorizontalFlip(),
-        
-        # 2. Random Crop/Resize (Use RandomResizedCrop for a strong spatial augmentation)
-        transforms.RandomApply(
-            [transforms.RandomResizedCrop(
-                size=(args.image_size, args.image_size), 
-                scale=(0.8, 1.0) # Scale factor to zoom in/out
-            )], 
-            p=P_TRANSFORM[0]
-        ),
-        
-        # 3. Random Rotation
-        transforms.RandomApply(
-            [transforms.RandomRotation(
-                degrees=10, 
-                expand=False
-            )], 
-            p=P_TRANSFORM[1]
-        ),
-        
-        # 4. Color/Brightness/Contrast Jitter
-        transforms.RandomApply(
-            [transforms.ColorJitter(
-                brightness=0.1, 
-                contrast=0.1, 
-                saturation=0.1, 
-                hue=0.05
-            )],
-            p=P_TRANSFORM[2]
-        ),
-
-        # 5. Final Transformations (Always applied)
-        # Ensure the image is resized to the target size after all random spatial transforms
         transforms.Resize((args.image_size, args.image_size)), 
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
+    if args.augment:
+        P_TRANSFORM = [0.1,0.1,0.1] # Crop, Rotation, Color
+        transform = transforms.Compose([
+            # 1. Random Flip 
+            transforms.RandomHorizontalFlip(),
+            
+            # 2. Random Crop/Resize (Use RandomResizedCrop for a strong spatial augmentation)
+            transforms.RandomApply(
+                [transforms.RandomResizedCrop(
+                    size=(args.image_size, args.image_size), 
+                    scale=(0.8, 1.0) # Scale factor to zoom in/out
+                )], 
+                p=P_TRANSFORM[0]
+            ),
+            
+            # 3. Random Rotation
+            transforms.RandomApply(
+                [transforms.RandomRotation(
+                    degrees=10, 
+                    expand=False
+                )], 
+                p=P_TRANSFORM[1]
+            ),
+            
+            # 4. Color/Brightness/Contrast Jitter
+            transforms.RandomApply(
+                [transforms.ColorJitter(
+                    brightness=0.1, 
+                    contrast=0.1, 
+                    saturation=0.1, 
+                    hue=0.05
+                )],
+                p=P_TRANSFORM[2]
+            ),
+
+            # 5. Final Transformations (Always applied)
+            # Ensure the image is resized to the target size after all random spatial transforms
+            transforms.Resize((args.image_size, args.image_size)), 
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
     # TOOD: use image folder for your train dataset
     if args.is_cifar_10:
         train_dataset = datasets.CIFAR10(
@@ -215,16 +223,21 @@ def main():
         # --- Validation dataset / loader (use CIFAR10 test split as val by default) ---
     val_loader = None
     if args.use_val:
+        val_transform = transforms.Compose([
+            transforms.Resize((args.image_size, args.image_size)), 
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
         if args.is_cifar_10:
             val_dataset = datasets.CIFAR10(
                 root=args.data_dir,
                 train=False,   # test split -> use as validation
                 download=False,
-                transform=transform  # evaluation transform; you may want a simpler transform
+                transform=val_transform  # evaluation transform; you may want a simpler transform
             )
         else:
             # If have a separate val folder, replace this with ImageFolder
-            val_dataset = datasets.ImageFolder(root=args.data_dir.replace("train", "val"), transform=transform)
+            val_dataset = datasets.ImageFolder(root=args.data_dir.replace("train", "val"), transform=val_transform)
 
         if args.subset < 1:
             val_dataset = torch.utils.data.Subset(val_dataset, torch.randperm(len(val_dataset))[:int(len(val_dataset)*args.subset)])

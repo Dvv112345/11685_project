@@ -14,6 +14,7 @@ num_classes: 10
 is_cifar_10: False
 use_val: True
 subset: 0.1
+augment: False
 
 # Training Configuration
 num_epochs: 300 
