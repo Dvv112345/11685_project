@@ -8,6 +8,9 @@ fi
 # Store the first argument in a variable
 input="$1"
 log="log/${input}.out"
+if [ $# -eq 2 ]; then
+  log="log/${input}${2}.out"
+fi
 
 cat <<EOF > "batch.job"
 #!/bin/bash
