@@ -12,6 +12,7 @@ from PIL import Image
 import torch.nn.functional as F
 
 from torchvision.utils  import make_grid
+from torchvision import datasets, transforms
 
 from models import UNet, VAE, ClassEmbedder
 from schedulers import DDPMScheduler, DDIMScheduler
@@ -115,14 +116,32 @@ def main():
     all_images = torch.cat(all_images, dim=0)
     all_images = (all_images * 255).clamp(0, 255).to(torch.uint8)
     # TODO: load validation images as reference batch
-    val_dir = args.val_dir
+    val_transform = transforms.Compose([
+        transforms.Resize((args.image_size, args.image_size)), 
+        transforms.ToTensor(),
+    ])
+    if args.is_cifar_10:
+        val_dataset = datasets.CIFAR10(
+            root=args.data_dir,
+            train=False,   # test split -> use as validation
+            download=False,
+            transform=val_transform  # evaluation transform; you may want a simpler transform
+        )
+    else:
+        # If have a separate val folder, replace this with ImageFolder
+        val_dataset = datasets.ImageFolder(root=args.data_dir.replace("train", "val"), transform=val_transform)
+
+
+    # val_dir = args.val_dir
     val_images = []
-    for fname in os.listdir(val_dir):
-        if fname.endswith(('.png', '.jpg', '.jpeg')):
-            img = Image.open(os.path.join(val_dir, fname)).convert('RGB')
-            img = img.resize((args.unet_in_size, args.unet_in_size))
-            img = torch.tensor(np.array(img)).permute(2, 0, 1).unsqueeze(0) / 255.0
-            val_images.append(img)
+    # for fname in os.listdir(val_dir):
+    #     if fname.endswith(('.png', '.jpg', '.jpeg')):
+    #         img = Image.open(os.path.join(val_dir, fname)).convert('RGB')
+    #         img = img.resize((args.unet_in_size, args.unet_in_size))
+    #         img = torch.tensor(np.array(img)).permute(2, 0, 1).unsqueeze(0) / 255.0
+    #         val_images.append(img)
+    for img, _ in val_dataset:
+        val_images.append(img)
     val_images = torch.cat(val_images, dim=0).to(device)
     
     # TODO: using torchmetrics for evaluation, check the documents of torchmetrics
