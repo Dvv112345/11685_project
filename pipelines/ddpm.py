@@ -62,6 +62,7 @@ class DDPMPipeline:
         guidance_scale : Optional[float] = None,
         generator: Optional[Union[torch.Generator, List[torch.Generator]]] = None,
         device = None,
+        return_tensor=False
     ):
         image_shape = (batch_size, self.unet.input_ch, self.unet.input_size, self.unet.input_size)
         if device is None:
@@ -130,6 +131,9 @@ class DDPMPipeline:
         # TODO: return final image, re-scale to [0, 1]
         image = (image + 1.0) / 2.0
         
+        if return_tensor:
+            return image
+
         # convert to PIL images
         image = image.cpu().permute(0, 2, 3, 1).numpy()
         image = self.numpy_to_pil(image)
