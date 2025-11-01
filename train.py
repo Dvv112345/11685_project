@@ -375,6 +375,8 @@ def main():
             class_embedder = torch.nn.parallel.DistributedDataParallel(
                 class_embedder, device_ids=[args.device], output_device=args.device, find_unused_parameters=False)
             class_embedder_wo_ddp = class_embedder.module
+        else:
+            class_embedder_wo_ddp = None
     else:
         unet_wo_ddp = unet
         class_embedder_wo_ddp = class_embedder
